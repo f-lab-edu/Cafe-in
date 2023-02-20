@@ -19,3 +19,4 @@
 # API Docs
 
 # Prototyping
+https://github.com/f-lab-edu/Cafe-in/wiki/Prototyping

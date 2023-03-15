@@ -21,3 +21,6 @@ https://github.com/f-lab-edu/Cafe-in/wiki/API%EB%AA%85%EC%84%B8%EC%84%9C
 
 # Prototyping
 https://github.com/f-lab-edu/Cafe-in/wiki/Prototyping
+
+# DB diagram
+https://dbdiagram.io/d/640c9484296d97641d872a70

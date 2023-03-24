@@ -19,6 +19,7 @@ bin/
 
 ### IntelliJ IDEA ###
 .idea
+.idea_modules/
 *.iws
 *.iml
 *.ipr
@@ -35,3 +36,27 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Ignore compiled binary files
+*.class
+*.jar
+*.war
+
+# Ignore log and temporary files
+*.log
+*.tmp
+*.swp
+
+# Ignore cache and build directories
+target/
+build/
+dist/
+
+# Ignore personal configuration files//환경
+.env
+.vscode/settings.json
+
+# Ignore passwords and secrets //보안
+*.key
+*.pem
+

@@ -30,7 +30,7 @@ class UserServiceTest {
     void 회원가입() {
         //given
         User user = new User(
-                null, "test6@email.com",
+                null, "test7@email.com",
                 "password", "nickname", 1, 0,
                 LocalDateTime.now(), LocalDateTime.now()
         );
@@ -55,14 +55,14 @@ class UserServiceTest {
 
         // given
         User user = new User(
-                null, "test2@email.com",
+                null, "test8@email.com",
                 "password", "nickname", 1, 0,
                 LocalDateTime.now(), LocalDateTime.now()
         );
 
         User user1 = new User(
-                null, "test@email.com",
-                "password", "nickname", 1, 0,
+                null, "test8@email.com",
+                "password", "nickname2", 1, 1000,
                 LocalDateTime.now(), LocalDateTime.now()
 
         );

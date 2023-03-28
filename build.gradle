@@ -32,6 +32,16 @@ dependencies {
 
     //mybatis 추가
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+
+    //Validation Starter
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //Bcrypt (패스워드 암호화)
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+    //Mockito
+
+
 }
 
 test {

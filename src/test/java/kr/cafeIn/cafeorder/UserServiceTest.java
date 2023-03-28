@@ -27,7 +27,7 @@ public class UserServiceTest {
                     @Override
                     public User save(User users) {
                         return new User();
-                    }
+                    }//db 까지 연결 아니고 , 그냥 리턴 값만 받는다.
 
                     @Override
                     public Optional<User> findByEmail(String email) {
@@ -37,7 +37,7 @@ public class UserServiceTest {
                                     User.builder()
                                             .email(email)
                                             .build()
-                                ) : Optional.empty();
+                                ) : Optional.empty(); //user 가 없을 경우
                     }
                 }
         );

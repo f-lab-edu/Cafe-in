@@ -56,7 +56,7 @@ dist/
 .env
 .vscode/settings.json
 
-# Ignore passwords and secrets //보안
+# Ignore passwords and secrets //db보안
 *.key
 *.pem
-
+application-dev.properties

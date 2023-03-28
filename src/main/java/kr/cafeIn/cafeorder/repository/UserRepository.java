@@ -10,4 +10,8 @@ public interface UserRepository {
     User save(User users);
 
     Optional<User> findByEmail(String email);// emial으로 찾을 경우
+
+
+
+
 }

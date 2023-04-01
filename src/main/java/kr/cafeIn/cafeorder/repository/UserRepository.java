@@ -9,5 +9,11 @@ public interface UserRepository {
 
     User save(User users);
 
-    Optional<User> findByEmail(String email);// emial으로 찾을 경우
+    Optional<User> findByEmail(String email);// email 으로 찾을 경우
+
+    void updateUser(Long id);
+
+    Optional<User> findById(Long id);
+
+
 }

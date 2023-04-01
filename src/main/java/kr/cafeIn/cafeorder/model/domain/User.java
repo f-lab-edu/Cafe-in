@@ -23,6 +23,7 @@ public class User {
     private Integer point; //포인트
     private LocalDateTime createdAt; //생성날짜
     private LocalDateTime updatedAt; //수정날짜
-
+    private LocalDateTime withdrawnAt;//탈퇴날짜 ,null
+    /*private String status;// 탈퇴 여부 */
 
 }

@@ -1,40 +1,100 @@
 package kr.cafeIn.cafeorder.controller;
 
+import kr.cafeIn.cafeorder.annotation.LoginCheck;
+import kr.cafeIn.cafeorder.annotation.WithdrawalCheck;
+import kr.cafeIn.cafeorder.exception.WithdrawalException;
 import kr.cafeIn.cafeorder.model.domain.User;
+import kr.cafeIn.cafeorder.model.dto.request.LoginReq;
+import kr.cafeIn.cafeorder.service.LoginService;
 import kr.cafeIn.cafeorder.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import javax.validation.Valid;
+
+/**
+ * User Controller.
+ * @RestController 는 @Controller 는 view 페이지를 반환하는데 ResetAPI 를
+ * 개발하는 상황에서는 @ResponseBody 를 붙여서 데이터를 그대로 반환 하도록 할 수 있다.
+ * 이 두개를 합친것이 @ResetController 이다
+ * @since 1.0.0
+ */
+
+@RestController
+@RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    private final LoginService loginService;
+
+    /**
+     * 회원가입
+     *
+     * @return
+     */
+
 
     @GetMapping("/users")//조회 할때 주로 사용
     public String createForm() {
         return "user";
     }
 
-    @PostMapping("/users")//form 데이터 보낼때 ( 데이터 등록시 사용) url은 똑같지만 !
+    @WithdrawalCheck
+    @PostMapping("/singup")//form 데이터 보낼때 ( 데이터 등록시 사용) url은 똑같지만 !
+    @ResponseStatus(HttpStatus.CREATED)
+    public void signup(@Valid @RequestBody User user) {
+         userService.join(user);
+    }
 
-    public String create(User user) {
-        User user1 = new User();
-        user.setEmail(user.getEmail());
-        user.setPassword(user.getPassword());
-        user.setNickname(user.getNickname());
-        user.setGrade(user.getGrade());
-        // create_at, grade,update_at도 넣어야 하는가?
-        userService.join(user);
-        return  "redirect:/";
+    /**
+     * 로그인
+     *
+     * @param loginReq 정보 입력
+     *
+     */
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void login(@Valid @RequestBody LoginReq loginReq){
+        loginService.login(loginReq);
 
     }
+
+    /**
+     * 로그아웃
+     *
+     *
+     *
+     *
+     */
+     @PostMapping("/logout")
+     @LoginCheck
+     @ResponseStatus(HttpStatus.OK)
+     public void logout(){
+         loginService.logout();
+
+     }
+
+    /**
+     *
+     * 회원탈퇴
+     *
+     *
+     */
+    @DeleteMapping
+    @LoginCheck
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PostMapping
+    public void withdraw(@PathVariable Long id) throws WithdrawalException {
+        userService.withdraw(id);
+
+    }
+
+
+
+
 
 
 }

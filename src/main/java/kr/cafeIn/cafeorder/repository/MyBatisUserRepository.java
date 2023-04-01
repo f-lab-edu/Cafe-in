@@ -13,8 +13,22 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class MyBatisUserRepository implements UserRepository {
-
     private  final UserMapper userMapper;
+
+    @Override
+    public void updateUser(Long id) {
+        userMapper.updateUser(id);
+
+    }
+
+    @Override
+    public Optional<User> findById(Long id) {
+        userMapper.findById(id);
+        return userMapper.findById(id);
+    }
+
+
+
 
     @Override
     public User save(User users) {
@@ -28,5 +42,7 @@ public class MyBatisUserRepository implements UserRepository {
         userMapper.findByEmail(email);
         return userMapper.findByEmail(email);
     }
+
+
 }
 

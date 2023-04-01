@@ -11,7 +11,9 @@
                       grade,
                       point,
                       create_at,
-                      update_at
+                      update_at,
+                      withdrawn_at
+
                       ) values
                             (
                              #{email},
@@ -20,7 +22,8 @@
                              #{grade},
                              #{point},
                              sysdate(),
-                             sysdate()
+                             sysdate(),
+                             null
                              )
 
 
@@ -31,6 +34,21 @@
         select * from users where email = #{email}
 
     </select>
+
+    <select id="findById" resultType="User">
+        select * from users where id = #{id}
+
+    </select>
+
+   <update id="updateUser" >
+       update users
+       set withdrawn_at = null
+       where id = #{id}
+
+   </update>
+    
+
+
 
 
 </mapper>

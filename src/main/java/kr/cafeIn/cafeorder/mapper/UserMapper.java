@@ -12,6 +12,10 @@ public interface UserMapper {
 
     Optional<User>findByEmail(String email);
 
+    void updateUser(Long id);
+
+    Optional<User>findById(Long id);
+
 
 
 

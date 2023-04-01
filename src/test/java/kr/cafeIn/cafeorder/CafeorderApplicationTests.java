@@ -29,7 +29,8 @@ class CafeorderApplicationTests {
 		User sample = new User(
 				null, String.format("test+%s@email.com", suffix),
 				"password", "nickname", 1, 0,
-				LocalDateTime.now(), LocalDateTime.now()
+				LocalDateTime.now(), LocalDateTime.now(),null
+
 		);
 		userRepository.save(sample);
 

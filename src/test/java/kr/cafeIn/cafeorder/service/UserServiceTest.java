@@ -1,9 +1,8 @@
 
 package kr.cafeIn.cafeorder.service;
 
+import kr.cafeIn.cafeorder.exception.DuplicatedException;
 import kr.cafeIn.cafeorder.model.domain.User;
-
-
 import kr.cafeIn.cafeorder.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,9 @@ class UserServiceTest {
     void 회원가입() {
         //given
         User user = new User(
-                null, "test6@email.com",
+                null, "test7@email.com",
                 "password", "nickname", 1, 0,
-                LocalDateTime.now(), LocalDateTime.now()
+                LocalDateTime.now(), LocalDateTime.now(),null
         );
 
         //when(저장한 아이디가 나와야 한다)
@@ -55,24 +54,26 @@ class UserServiceTest {
 
         // given
         User user = new User(
-                null, "test2@email.com",
+                null, "test8@email.com",
                 "password", "nickname", 1, 0,
-                LocalDateTime.now(), LocalDateTime.now()
+                LocalDateTime.now(), LocalDateTime.now(),null
         );
 
         User user1 = new User(
-                null, "test@email.com",
-                "password", "nickname", 1, 0,
-                LocalDateTime.now(), LocalDateTime.now()
+                null, "test8@email.com",
+                "password", "nickname2", 1, 1000,
+                LocalDateTime.now(), LocalDateTime.now(),null
+
 
         );
 
         // when
         userService.join(user);
-        IllegalStateException e = assertThrows(IllegalStateException.class, () -> userService.join(user1));
+        DuplicatedException e = assertThrows(DuplicatedException.class, () -> userService.join(user1));
 
-        assertThat(e.getMessage()).isEqualTo("이미존재하는 회원입니다");
+        assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다");
 
 
     }
+
 }

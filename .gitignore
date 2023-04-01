@@ -59,4 +59,4 @@ dist/
 # Ignore passwords and secrets //보안
 *.key
 *.pem
-
+application-dev.properties

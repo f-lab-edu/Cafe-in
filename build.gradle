@@ -20,6 +20,7 @@ dependencies {
 
     //mysql 추가
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.26'
+    testImplementation 'junit:junit:4.13.1'
     runtimeOnly 'com.mysql:mysql-connector-j'
 
     //jdbc 추가 ( db 연동시 필요)
@@ -32,6 +33,16 @@ dependencies {
 
     //mybatis 추가
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
+
+    //Validation Starter
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    //Bcrypt (패스워드 암호화)
+    implementation 'org.mindrot:jbcrypt:0.4'
+
+    //AspectJ
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
 }
 
 test {

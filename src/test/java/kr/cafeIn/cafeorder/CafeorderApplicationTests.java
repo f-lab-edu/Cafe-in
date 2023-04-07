@@ -16,24 +16,24 @@ import java.time.LocalDateTime;
 @Transactional
 class CafeorderApplicationTests {
 
-	@Autowired
-	UserService userService;
-	@Qualifier("myBatisUserRepository")
-	@Autowired
-	UserRepository userRepository;
+  @Autowired
+  UserService userService;
+  @Qualifier("myBatisUserRepository")
+  @Autowired
+  UserRepository userRepository;
 
-	@Test
-	void contextLoads() {
+  @Test
+  void contextLoads() {
 
-		Long suffix = System.currentTimeMillis() % 100000L;
-		User sample = new User(
-				null, String.format("test+%s@email.com", suffix),
-				"password", "nickname", 1, 0,
-				LocalDateTime.now(), LocalDateTime.now(),null
+    Long suffix = System.currentTimeMillis() % 100000L;
+    User sample = new User(
+        null, String.format("test+%s@email.com", suffix),
+        "password", "nickname", 1, 0,
+        LocalDateTime.now(), LocalDateTime.now(), null
 
-		);
-		userRepository.save(sample);
+    );
+    userRepository.save(sample);
 
-	}
+  }
 
 }

@@ -1,54 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.cafeIn.cafeorder.mapper.UserMapper">
 
-    <insert id="save">
-    insert into users(
-                      email,
+  <insert id="save">
+    insert into users(email,
                       password,
                       nickname,
                       grade,
                       point,
                       create_at,
                       update_at,
-                      withdrawn_at
-
-                      ) values
-                            (
-                             #{email},
-                             #{password},
-                             #{nickname},
-                             #{grade},
-                             #{point},
-                             sysdate(),
-                             sysdate(),
-                             null
-                             )
+                      withdrawn_at)
+    values (#{email},
+            #{password},
+            #{nickname},
+            #{grade},
+            #{point},
+            sysdate(),
+            sysdate(),
+            null)
 
 
-    </insert>
+  </insert>
 
 
-    <select id="findByEmail" resultType="User">
-        select * from users where email = #{email}
+  <select id="findByEmail" resultType="User">
+    select *
+    from users
+    where email = #{email}
 
-    </select>
+  </select>
 
-    <select id="findById" resultType="User">
-        select * from users where id = #{id}
+  <select id="findById" resultType="User">
+    select *
+    from users
+    where id = #{id}
 
-    </select>
+  </select>
 
-   <update id="updateUser" >
-       update users
-       set withdrawn_at = null
-       where id = #{id}
+  <update id="updateUser">
+    update users
+    set withdrawn_at = null
+    where id = #{id}
 
-   </update>
-    
-
-
+  </update>
 
 
 </mapper>

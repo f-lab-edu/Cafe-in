@@ -1,6 +1,5 @@
 package kr.cafeIn.cafeorder.model.dto.response;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WithdrawnRep {
-    private Long id;
-    private String email;
-    private LocalDateTime withdrawnAt;// temporary property
+
+  private Long id;
+  private String email;
+  private LocalDateTime withdrawnAt;// temporary property
 }

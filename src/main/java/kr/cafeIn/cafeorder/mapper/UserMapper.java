@@ -8,15 +8,12 @@ import java.util.Optional;
 @Mapper
 public interface UserMapper {
 
-    void save(User user);
+  void save(User user);
 
-    Optional<User>findByEmail(String email);
+  Optional<User> findByEmail(String email);
 
-    void updateUser(Long id);
+  void updateUser(Long id);
 
-    Optional<User>findById(Long id);
-
-
-
+  Optional<User> findById(Long id);
 
 }

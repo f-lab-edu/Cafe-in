@@ -1,8 +1,6 @@
 package kr.cafeIn.cafeorder;
 
 
-
-
 import kr.cafeIn.cafeorder.repository.UserRepository;
 
 import kr.cafeIn.cafeorder.service.UserService;
@@ -15,17 +13,12 @@ import javax.sql.DataSource;
 @Configuration
 public class SpringConfig {
 
-
-   private final DataSource dataSource;
-
-
-    public SpringConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
+  private final DataSource dataSource;
 
 
-
-
+  public SpringConfig(DataSource dataSource) {
+    this.dataSource = dataSource;
+  }
 
 }
 

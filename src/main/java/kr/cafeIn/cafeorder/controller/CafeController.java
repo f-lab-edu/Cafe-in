@@ -27,7 +27,7 @@ public class CafeController {
 	private final CafeService cafeService;
 
 	/**
-	 * 메뉴 등록.
+	 * 카페 등록.
 	 *
 	 * @param cafeAddRequest 카페등록 입력 정보
 	 * @since 1.0.0
@@ -67,7 +67,7 @@ public class CafeController {
 	/**
 	 * 카페 정보 수정.
 	 *
-	 * @param cafeId 메뉴 ID.
+	 * @param cafeId 카페 ID.
 	 * @since 1.0.0
 	 */
 
@@ -79,7 +79,7 @@ public class CafeController {
 	}
 
 	/**
-	 * 메뉴 삭제.
+	 * 카페 삭제.
 	 *
 	 * @param cafeId 카페 ID.
 	 * @since 1.0.0

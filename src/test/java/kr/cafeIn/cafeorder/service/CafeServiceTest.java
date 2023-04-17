@@ -10,6 +10,7 @@ import kr.cafeIn.cafeorder.exception.DuplicatedException;
 import kr.cafeIn.cafeorder.mapper.CafeMapper;
 import kr.cafeIn.cafeorder.model.domain.Cafe;
 import kr.cafeIn.cafeorder.model.dto.request.CafeAddRequest;
+import kr.cafeIn.cafeorder.model.dto.request.CafeUpdateRequest;
 import kr.cafeIn.cafeorder.model.dto.response.CafeInfoResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,9 +31,9 @@ class CafeServiceTest {
 
 	Cafe cafe;
 
-	CafeAddRequest cafeAddReq; // 추가, 정보 수정 같이 사용.
+	CafeAddRequest cafeAddRequest;
 
-	CafeInfoResponse cafeInfoRes;
+	CafeInfoResponse cafeInfoResponse;
 
 	@BeforeEach
 	public void addCafe() {
@@ -46,7 +47,7 @@ class CafeServiceTest {
 			.longitude(50)
 			.build();
 
-		cafeAddReq = CafeAddRequest.builder()
+		cafeAddRequest = CafeAddRequest.builder()
 			.title("testCafe")
 			.location("testLocation")
 			.locationSetting("testLocationSetting")
@@ -55,7 +56,7 @@ class CafeServiceTest {
 			.longitude(50)
 			.build();
 
-		cafeInfoRes = CafeInfoResponse.builder()
+		cafeInfoResponse = CafeInfoResponse.builder()
 			.id(1L)
 			.title("testCafe")
 			.location("testLocation")
@@ -66,24 +67,24 @@ class CafeServiceTest {
 	@Test
 	@DisplayName("카페추가에 성공합니다.")
 	public void menuSaveTestWhenSuccess() {
-		when(cafeMapper.isExistsCafe(cafeAddReq.getTitle())).thenReturn(false);
-		cafeService.addCafe(cafeAddReq);
+		when(cafeMapper.isExistsCafe(cafeAddRequest.getTitle())).thenReturn(false);
+		cafeService.addCafe(cafeAddRequest);
 		verify(cafeMapper).insertCafe(any(Cafe.class));
 	}
 
 	@Test
 	@DisplayName("카페추가에 실패합니다. : 중복된 카페")
 	public void menuSaveTestWhenFail() {
-		when(cafeMapper.isExistsCafe(cafeAddReq.getTitle())).thenReturn(true);
-		assertThrows(DuplicatedException.class, () -> cafeService.addCafe(cafeAddReq));
-		verify(cafeMapper).isExistsCafe(cafeAddReq.getTitle());
+		when(cafeMapper.isExistsCafe(cafeAddRequest.getTitle())).thenReturn(true);
+		assertThrows(DuplicatedException.class, () -> cafeService.addCafe(cafeAddRequest));
+		verify(cafeMapper).isExistsCafe(cafeAddRequest.getTitle());
 	}
 
 	@Test
 	@DisplayName("카페 조회에 성공합니다.")
 	public void selectCafeByIdTestWhenSuccess() {
 		when(cafeMapper.selectCafeById(1L))
-			.thenReturn(Optional.ofNullable(cafeInfoRes));
+			.thenReturn(Optional.ofNullable(cafeInfoResponse));
 		cafeService.getCafeInfo(1L);
 		verify(cafeMapper).selectCafeById(1L);
 	}
@@ -91,7 +92,7 @@ class CafeServiceTest {
 	@Test
 	@DisplayName("카페 정보 수정에 성공합니다.")
 	public void updateCafeByIdWhenSuccess() {
-		CafeAddRequest requestDto = CafeAddRequest.builder().build();
+		CafeUpdateRequest requestDto = CafeUpdateRequest.builder().build();
 		cafeService.updateCafeInfo(cafe.getId(), requestDto);
 		verify(cafeMapper).updateCafeById(any(Cafe.class));
 	}

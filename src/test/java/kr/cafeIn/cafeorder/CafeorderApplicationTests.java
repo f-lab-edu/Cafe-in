@@ -1,8 +1,6 @@
 package kr.cafeIn.cafeorder;
 
-import kr.cafeIn.cafeorder.model.domain.User;
 import kr.cafeIn.cafeorder.repository.UserRepository;
-import kr.cafeIn.cafeorder.service.UserService;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;

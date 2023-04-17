@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.cafeIn.cafeorder.mapper.CafeMapper">
+
+  <insert id="insertCafe" parameterType="kr.cafeIn.cafeorder.model.domain.Cafe">
+    INSERT INTO cafes (title, location, location_setting, tel, latitude, longitude)
+    VALUES (#{title}, #{location}, #{locationSetting}, #{tel}, #{latitude}, #{longitude})
+  </insert>
+
+  <select id="isExistsCafe" resultType="boolean">
+    SELECT EXISTS
+    (SELECT title FROM cafes WHERE title = #{title})
+  </select>
+
+  <select id="selectCafeById" resultType="kr.cafeIn.cafeorder.model.dto.response.CafeInfoResponse">
+    SELECT id, title, location, location_setting, tel, latitude, longitude
+    FROM cafes WHERE id = #{id}
+  </select>
+
+  <select id="selectCafeAll" resultType="kr.cafeIn.cafeorder.model.domain.Cafe">
+    SELECT *
+    FROM cafes
+  </select>
+
+  <update id="updateCafeById">
+    UPDATE cafes
+    <set>
+      <if test="title != null">title = #{title},</if>
+      <if test="location != null">location = #{location},</if>
+      <if test="locationSetting != null">location_Setting = #{locationSetting},</if>
+      <if test="tel != null">tel = #{tel},</if>
+      <if test="latitude != null">latitude = #{latitude},</if>
+      <if test="longitude != null">longitude = #{longitude},</if>
+      updated_at = NOW()
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <delete id="deleteCafe">
+    DELETE FROM cafes WHERE id = #{cafeId}
+  </delete>
+
+</mapper>

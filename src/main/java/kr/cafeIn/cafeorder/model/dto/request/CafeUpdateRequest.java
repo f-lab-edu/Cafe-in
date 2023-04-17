@@ -1,4 +1,4 @@
-package kr.cafeIn.cafeorder.model.dto.response;
+package kr.cafeIn.cafeorder.model.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,13 +11,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CafeInfoResponse {
+public class CafeUpdateRequest {
 
-	private Long id;
-	//	private Long cafe_id; 임시로 빼기
 	private String title;
 
 	private String location;
+
+	private String locationSetting;
+
+	private String tel;
+
+	private Integer latitude;
+
+	private Integer longitude;
 
 	private String thumbnail;
 }

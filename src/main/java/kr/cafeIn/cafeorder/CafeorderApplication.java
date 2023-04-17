@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 @SpringBootApplication
-@Import(SpringConfig.class)
 public class CafeorderApplication {
 
     public static void main(String[] args) {

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.cafeIn.cafeorder.mapper.MenuMapper">
+
+  <insert id="insertMenu" parameterType="kr.cafeIn.cafeorder.model.domain.Menu">
+    INSERT INTO menu (name, price)
+    VALUES (#{name}, #{price})
+  </insert>
+
+  <select id="isExistsMenu" resultType="boolean">
+    SELECT EXISTS
+    (SELECT name FROM menu WHERE name = #{name})
+  </select>
+
+  <select id="selectMenuById" resultType="kr.cafeIn.cafeorder.model.dto.response.MenuInfoResponse">
+    SELECT name, price
+    FROM menu WHERE id = #{menuId}
+  </select>
+
+  <select id="selectMenuAll" resultType="kr.cafeIn.cafeorder.model.domain.Menu">
+    SELECT *
+    FROM CafeIn.menu
+  </select>
+
+  <update id="updateMenuById">
+    UPDATE menu
+    <set>
+      <if test="name != null">name = #{name},</if>
+      <if test="price != null">price = #{price},</if>
+      updated_at = NOW()
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <delete id="deleteMenu">
+    DELETE FROM menu WHERE id = #{menuId}
+  </delete>
+
+</mapper>

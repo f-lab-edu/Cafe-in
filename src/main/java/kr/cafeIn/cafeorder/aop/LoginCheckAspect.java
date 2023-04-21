@@ -23,7 +23,6 @@ public class LoginCheckAspect {
    * 카페 자리 예약시  로그인 체크 여부 확인 {@link kr.cafeIn.cafeorder.annotation.LoginCheck}가 붙어있는 메소드에 로그인 검증 AOP
    * 적용.
    *
-   * @since 1.0.0
    */
   @Before("@annotation(kr.cafeIn.cafeorder.annotation.LoginCheck)")
   public Long loginCheck() {

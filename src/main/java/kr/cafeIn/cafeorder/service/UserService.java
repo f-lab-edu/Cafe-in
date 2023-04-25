@@ -12,6 +12,7 @@ import kr.cafeIn.cafeorder.utils.PasswordEncrypt;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service //스프링 컨테이너에 등록을 한다 .
 @Slf4j
@@ -21,7 +22,6 @@ public class UserService {
   private final UserMapper userMapper;
 
 
-
   /**
    * 회원가입
    */
@@ -29,14 +29,14 @@ public class UserService {
     //중복회원 검증
     validateDuplicateUser(user);
     user.setPassword(PasswordEncrypt.encrypt(user.getPassword()));
-   userMapper.save(user);//통과시 저장
+    userMapper.save(user);//통과시 저장
     return user.getEmail();//회원가입 하면 id만 반환해 준다
   }
 
   private void validateDuplicateUser(User users) {//같은 이름이 있는 중복 회원 x
     userMapper.findByEmail(users.getEmail())
         .ifPresent(m -> {// user에 이미 값이 있으면
-          throw new DuplicatedException("이미 존재하는 회원입니다");
+          throw new DuplicatedException("중복된 이메일입니다");
         });
   }
 
@@ -60,7 +60,7 @@ public class UserService {
    * @param id 유저 ID
    * @since 1.0.0
    */
-  //@Transactional
+  @Transactional
   public User withdraw(Long id) throws WithdrawalException {
 
     Optional<User> userOptional = userMapper.findById(id);
@@ -73,10 +73,10 @@ public class UserService {
     }
 
     //withdrawnAt 필드를 현재 시간으로 설정
-/*    user.setWithdrawnAt(LocalDateTime.now());*/
-   LocalDateTime withdrawnAt =LocalDateTime.now();
+    /*    user.setWithdrawnAt(LocalDateTime.now());*/
+    LocalDateTime withdrawnAt = LocalDateTime.now();
     log.info("withdrawnAt: {}, id: {}", withdrawnAt, id);
-    userMapper.updateWithdrawnAt(id,withdrawnAt);
+    userMapper.updateWithdrawnAt(id, withdrawnAt);
     return user;
   }
 
@@ -87,7 +87,7 @@ public class UserService {
    * @throws RegistrationException
    */
 
-  //@Transactional
+  @Transactional
   public void register(Optional<User> user) throws RegistrationException {
     Optional<User> existingUser = userMapper.findByEmail(user.get().getEmail());
     if (existingUser.isEmpty()) {
@@ -95,13 +95,12 @@ public class UserService {
     }
 
     //탈퇴 후 3일이 지났을 경우 ,회원가입 가능(기존회원에 wthdrawnAt 를 null 로 업데이트 )
-    if(existingUser.get().getWithdrawnAt().plusDays(3).isAfter(LocalDateTime.now())){
-       throw  new RegistrationException("탈퇴 후 3일 이내 등록 불가합니다");
-    }else{
+    if (existingUser.get().getWithdrawnAt().plusDays(3).isAfter(LocalDateTime.now())) {
+      throw new RegistrationException(" 탈퇴한 회원은 3 일간 가입이 불가 합니다.");
+    } else {
       Long id = existingUser.get().getId();
       userMapper.updateUser(id);
     }
-
 
 
   }
@@ -112,9 +111,8 @@ public class UserService {
    */
 
 
-  public void updatePassword(Long userid,String newPassword){
-    log.info("userid:{}",userid,"newPassword:{}",newPassword);
-    userMapper.updatePassword(userid,newPassword);
+  public void updatePassword(Long userid, String newPassword) {
+    userMapper.updatePassword(userid, newPassword);
   }
 
 

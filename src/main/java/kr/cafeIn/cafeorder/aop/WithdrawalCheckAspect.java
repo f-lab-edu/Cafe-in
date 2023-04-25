@@ -61,9 +61,9 @@ public class WithdrawalCheckAspect {
 
       if (isLoginReq) {
         throw new WithdrawalException("이미 탈퇴한 회원입니다");
-      } else {
-        userService.register(userOptional);
       }
+
+      userService.register(userOptional);
 
     }
   }

@@ -14,7 +14,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
-  //DI
   private final CurrentUserIdResolver currentUserIdResolver;
 
   //HandlerMethodArgumentResolver 를 상속받은 객체를 가지고 루프를 돌며 지원하는 파라미터인지 확인 하고 결과 리턴

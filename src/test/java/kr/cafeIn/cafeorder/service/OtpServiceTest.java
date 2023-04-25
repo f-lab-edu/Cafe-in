@@ -35,20 +35,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @Slf4j
 public class OtpServiceTest {
 
-  private  OtpService otpService;
+  private OtpService otpService;
 
   @Mock
   UserService userService;
 
   @Mock
-  private OtpHistoryMapper otpHistoryMapper ;
+  private OtpHistoryMapper otpHistoryMapper;
 
   @Mock
-  private GoogleAuthenticator googleAuthenticator ;
+  private GoogleAuthenticator googleAuthenticator;
 
   @Mock
   private EmailSender emailSender;
-
 
 
   @BeforeEach
@@ -57,69 +56,66 @@ public class OtpServiceTest {
 
     MockitoAnnotations.openMocks(this);
 
-    otpService = new OtpService(googleAuthenticator,otpHistoryMapper,userService,emailSender);
-
+    otpService = new OtpService(googleAuthenticator, otpHistoryMapper, userService, emailSender);
 
 
   }
 
 
-    @Test
-    @DisplayName("OTP 생성 테스트")
-    void generateOtpTest(){
-      //given
-      when(googleAuthenticator.createCredentials()).thenReturn(
-          new Builder("123456").build()
-      );
-      //when
-      String otp =otpService.generateOtp();
+  @Test
+  @DisplayName("OTP 생성 테스트")
+  void generateOtpTest() {
+    //given
+    when(googleAuthenticator.createCredentials()).thenReturn(new Builder("123456").build());
+    //when
+    String otp = otpService.generateOtp();
 
-      //then
-      Assertions.assertEquals("123456",otp);
+    //then
+    Assertions.assertEquals("123456", otp);
 
 
-    }
+  }
 
-    @Test
-    @DisplayName("OTP 전송 테스트")
-    void sendOtpByEmailTest() throws Exception {
-      //given
-      Mockito.doNothing().when(emailSender).send(anyString(), anyString());
+  @Test
+  @DisplayName("OTP 전송 테스트")
+  void sendOtpByEmailTest() throws Exception {
+    //given
+    Mockito.doNothing().when(emailSender).send(anyString(), anyString());
 
-      //when
-      otpService.sendOtpByEmail("test@test.com","123456");
+    //when
+    otpService.sendOtpByEmail("test@test.com", "123456");
 
-      //then
-      verify(emailSender, times(1)).send("test@test.com","123456");
+    //then
+    verify(emailSender, times(1)).send("test@test.com", "123456");
 
-    }
+  }
 
-    @Test
-    @DisplayName("OTP 저장 및 전송 테스트")
-    void saveOtpTest() throws Exception {
-      //given
-      LoginForgotReq loginForgotReq = new LoginForgotReq();
-      loginForgotReq.setEmail("test@test.com");
-      User user = new User();
-      user.setId(1L);
-      user.setEmail("test@test.com");
-      when(userService.findOne(anyString())).thenReturn(Optional.of(user));
-      when(googleAuthenticator.createCredentials()).thenReturn(new Builder("123456").build());
+  @Test
+  @DisplayName("OTP 저장 및 전송 테스트")
+  void saveOtpTest() throws Exception {
+    //given
+    LoginForgotReq loginForgotReq = new LoginForgotReq();
+    loginForgotReq.setEmail("test@test.com");
+    User user = new User();
+    user.setId(1L);
+    user.setEmail("test@test.com");
+    when(userService.findOne(anyString())).thenReturn(Optional.of(user));
+    when(googleAuthenticator.createCredentials()).thenReturn(new Builder("123456").build());
 
-      //when
-      otpService.saveOtp(loginForgotReq);
+    //when
+    otpService.saveOtp(loginForgotReq);
 
-      //then
-      verify(emailSender, times(1)).send("test@test.com", "123456");
-      verify(otpHistoryMapper, times(1)).saveOtp(Mockito.any(OtpHistory.class));
-    }
+    //then
+    verify(emailSender, times(1)).send("test@test.com", "123456");
+    verify(otpHistoryMapper, times(1)).saveOtp(Mockito.any(OtpHistory.class));
+  }
 
   @Test
   @DisplayName("OTP 키 존재 여부 확인 테스트")
   void isExistsOtpKeyTest() {
 
-    OtpHistory otpHistory = new OtpHistory(1L,"123456",LocalDateTime.now().plusMinutes(5));
-   otpHistoryMapper.saveOtp(otpHistory);
+    OtpHistory otpHistory = new OtpHistory(1L, "123456", LocalDateTime.now().plusMinutes(5));
+    otpHistoryMapper.saveOtp(otpHistory);
     when(otpHistoryMapper.existOtpKey(otpHistory.getOtpKey())).thenReturn(true);
 
     // when
@@ -133,11 +129,11 @@ public class OtpServiceTest {
   @DisplayName("OPT 키 유효성 테스트: 유효한 OTP")
   public void testIsOtpExpired() {
     //given
-    OtpHistory otpHistory = new OtpHistory(1L,"123456",LocalDateTime.now().plusMinutes(5));
+    OtpHistory otpHistory = new OtpHistory(1L, "123456", LocalDateTime.now().plusMinutes(5));
     otpHistoryMapper.saveOtp(otpHistory);
 
-
-    when(otpHistoryMapper.getExpireTime(otpHistory.getOtpKey())).thenReturn(otpHistory.getOtpExpireTime());
+    when(otpHistoryMapper.getExpireTime(otpHistory.getOtpKey())).thenReturn(
+        otpHistory.getOtpExpireTime());
 
     //when
     boolean isExpired = otpService.isOtpExpired(otpHistory.getOtpKey());
@@ -147,23 +143,22 @@ public class OtpServiceTest {
   }
 
 
-@Test
+  @Test
   @DisplayName("OPT 키 유효성 테스트: 유효기간 만료")
   public void testIsOtpExpiredFalse() {
 
-  //given
-  OtpHistory otpHistory = new OtpHistory(1L,"123456",LocalDateTime.now());
-  otpHistoryMapper.saveOtp(otpHistory);
+    //given
+    OtpHistory otpHistory = new OtpHistory(1L, "123456", LocalDateTime.now());
+    otpHistoryMapper.saveOtp(otpHistory);
 
+    when(otpHistoryMapper.getExpireTime(otpHistory.getOtpKey())).thenReturn(
+        otpHistory.getOtpExpireTime());
 
-  when(otpHistoryMapper.getExpireTime(otpHistory.getOtpKey())).thenReturn(otpHistory.getOtpExpireTime());
+    //when
+    boolean isExpired = otpService.isOtpExpired(otpHistory.getOtpKey());
 
-  //when
-  boolean isExpired = otpService.isOtpExpired(otpHistory.getOtpKey());
-
-  //then
-  assert(isExpired==true);
-
+    //then
+    assert (isExpired == true);
 
 
   }
@@ -173,7 +168,8 @@ public class OtpServiceTest {
   public void updatePasswordEmailNotFound() {
     // given
     String email = "notfound@example.com";
-    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456", "123456");
+    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456",
+        "123456");
 
     when(userService.findOne(anyString())).thenReturn(Optional.empty());
 
@@ -185,10 +181,11 @@ public class OtpServiceTest {
 
   @Test
   @DisplayName("패스워드 변경 시: 잘못된 OTP 일 경우 ")
-  public void updatePasswordInvalidOtp(){
+  public void updatePasswordInvalidOtp() {
     // given
     String email = "user@example.com";
-    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456", "123456");
+    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456",
+        "123456");
 
     User user = new User();
     user.setId(1L);
@@ -206,10 +203,11 @@ public class OtpServiceTest {
 
   @Test
   @DisplayName("패스워드 변경 시: OTP 유효기간 만료")
-  public void updatePasswordExpiredOtp(){
+  public void updatePasswordExpiredOtp() {
     // given
     String email = "user@example.com";
-    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456", "123456");
+    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456",
+        "123456");
 
     //user생성
     User user = new User();
@@ -218,17 +216,15 @@ public class OtpServiceTest {
     when(userService.findOne(anyString())).thenReturn(Optional.of(user));
 
     //otp 테이블 생성
-    OtpHistory otpHistory = new OtpHistory(1L,"oldpassword",LocalDateTime.now());
+    OtpHistory otpHistory = new OtpHistory(1L, "oldpassword", LocalDateTime.now());
     otpHistoryMapper.saveOtp(otpHistory);
 
-    when(otpHistoryMapper.getExpireTime(passwordResetReq.getOtp())).thenReturn(otpHistory.getOtpExpireTime());
+    when(otpHistoryMapper.getExpireTime(passwordResetReq.getOtp())).thenReturn(
+        otpHistory.getOtpExpireTime());
 
     boolean isExpired = otpService.isOtpExpired(passwordResetReq.getOtp());
-    assert(isExpired==true);
+    assert (isExpired == true);
     when(otpService.isExistsOtpKey(passwordResetReq.getOtp())).thenReturn(true);
-
-
-
 
     // when and then
     assertThrows(InvalidRequestException.class, () -> {
@@ -239,10 +235,11 @@ public class OtpServiceTest {
 
   @Test
   @DisplayName("패스워드 변경 시: 유효한 OTP 비밀번호 변경 ")
-  public void updatePasswordValidOtp(){
+  public void updatePasswordValidOtp() {
     // given
     String email = "user@example.com";
-    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456", "123456");
+    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456",
+        "123456");
 
     //user생성
     User user = new User();
@@ -251,16 +248,15 @@ public class OtpServiceTest {
     when(userService.findOne(anyString())).thenReturn(Optional.of(user));
 
     //otp 테이블 생성
-    OtpHistory otpHistory = new OtpHistory(1L,"oldpassword",LocalDateTime.now().plusMinutes(5));
+    OtpHistory otpHistory = new OtpHistory(1L, "oldpassword", LocalDateTime.now().plusMinutes(5));
     otpHistoryMapper.saveOtp(otpHistory);
 
-    when(otpHistoryMapper.getExpireTime(passwordResetReq.getOtp())).thenReturn(otpHistory.getOtpExpireTime());
+    when(otpHistoryMapper.getExpireTime(passwordResetReq.getOtp())).thenReturn(
+        otpHistory.getOtpExpireTime());
 
     boolean isExpired = otpService.isOtpExpired(passwordResetReq.getOtp());
     assertFalse(isExpired);
     when(otpService.isExistsOtpKey(passwordResetReq.getOtp())).thenReturn(true);
-
-
 
     // when
     otpService.updatePassword(passwordResetReq);
@@ -269,7 +265,6 @@ public class OtpServiceTest {
     // userService.updatePassword 메소드가 정상적으로 호출되었는지 검증
     verify(userService, times(1)).updatePassword(eq(user.getId()), anyString());
   }
-
 
 
 }

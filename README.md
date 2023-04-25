@@ -17,6 +17,8 @@
 * Jenkins
 
 # Issue
+세션유지를 위한 방법 jwt vs 세션
+https://webmaster-mi.tistory.com/133
 
 # API Docs
 https://github.com/f-lab-edu/Cafe-in/wiki/API%EB%AA%85%EC%84%B8%EC%84%9C

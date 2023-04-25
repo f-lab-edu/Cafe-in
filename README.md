@@ -1,5 +1,4 @@
-
-https://user-images.githubusercontent.com/74256905/148158835-d8a3e76a-eb67-4340-bd55-621fa1e18c59.png
+<img src='https://user-images.githubusercontent.com/74256905/148158835-d8a3e76a-eb67-4340-bd55-621fa1e18c59.png'>
 
 # :coffee: Cafe-in
 카페 자리 예약 서비스 입니다.

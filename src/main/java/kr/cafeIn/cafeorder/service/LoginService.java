@@ -1,7 +1,6 @@
 package kr.cafeIn.cafeorder.service;
 
 
-import java.util.Optional;
 import kr.cafeIn.cafeorder.model.domain.User;
 import kr.cafeIn.cafeorder.model.dto.request.LoginReq;
 import kr.cafeIn.cafeorder.utils.PasswordEncrypt;
@@ -23,15 +22,14 @@ public class LoginService {
    */
 
   public void login(LoginReq loginReq) {
-    Optional<User> user = userService.findOne(loginReq.getEmail());
+    User user = userService.findOne(loginReq.getEmail())
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다"));
 
-    if (PasswordEncrypt.isMatch(loginReq.getPassword(), user.get().getPassword())) {
-      sessionManager.login(user.get().getId());
-
-    } else {
-      //런타임시 , 적절하지 않은 패스워드 오류 발생
-      throw new IllegalArgumentException("비밀번호가 유효하지 않습니다");
+    if (!PasswordEncrypt.isMatch(loginReq.getPassword(), user.getPassword())) {
+      throw new IllegalArgumentException("비밀번호가 일치하지 않습니다");
     }
+
+    sessionManager.login(user.getId());
   }
 
   public void logout() {

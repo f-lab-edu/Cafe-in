@@ -82,7 +82,7 @@ public class UserController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @PutMapping("/leave")
   public void withdraw(@CurrentUserId Long id) throws WithdrawalException {
-    log.info(" id: {}", id);
+
     userService.withdraw(id);
 
   }
@@ -94,7 +94,7 @@ public class UserController {
   @PostMapping("/forgot")
   @ResponseStatus(HttpStatus.OK)
   public void forgotPassword(@Valid @RequestBody LoginForgotReq loginForgotReq) {
-    log.info("hamham : {}", loginForgotReq);
+
     otpService.saveOtp(loginForgotReq);
 
   }

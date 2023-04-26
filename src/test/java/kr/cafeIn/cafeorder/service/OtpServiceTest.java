@@ -13,7 +13,7 @@ import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey.Builder;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import kr.cafeIn.cafeorder.exception.InvalidRequestException;
+import kr.cafeIn.cafeorder.exception.InvalidOtpException;
 import kr.cafeIn.cafeorder.ext.EmailSender;
 import kr.cafeIn.cafeorder.mapper.OtpHistoryMapper;
 import kr.cafeIn.cafeorder.model.domain.OtpHistory;
@@ -195,7 +195,7 @@ public class OtpServiceTest {
     when(otpService.isExistsOtpKey(passwordResetReq.getOtp())).thenReturn(false);
 
     // when and then
-    assertThrows(InvalidRequestException.class, () -> {
+    assertThrows(InvalidOtpException.class, () -> {
       otpService.updatePassword(passwordResetReq);
     });
 
@@ -227,7 +227,7 @@ public class OtpServiceTest {
     when(otpService.isExistsOtpKey(passwordResetReq.getOtp())).thenReturn(true);
 
     // when and then
-    assertThrows(InvalidRequestException.class, () -> {
+    assertThrows(InvalidOtpException.class, () -> {
       otpService.updatePassword(passwordResetReq);
     });
 

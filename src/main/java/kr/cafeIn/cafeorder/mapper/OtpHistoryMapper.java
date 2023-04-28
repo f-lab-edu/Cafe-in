@@ -10,7 +10,7 @@ public interface OtpHistoryMapper {
 
   void saveOtp(OtpHistory otpHistory);
 
-  boolean existOtpKey(@Param("otpKey") String otpKey );
+  boolean existOtpKey(@Param("otpKey") String otpKey);
 
   LocalDateTime getExpireTime(@Param("otpKey") String otpKey);
 

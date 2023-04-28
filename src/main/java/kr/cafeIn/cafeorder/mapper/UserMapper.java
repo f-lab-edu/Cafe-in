@@ -18,9 +18,8 @@ public interface UserMapper {
   Optional<User> findById(Long id);
 
 
+  void updatePassword(@Param("id") Long id, @Param("newPassword") String newPassword);
 
-  void updatePassword(@Param("id") Long id,@Param("newPassword") String newPassword );
-
-  User updateWithdrawnAt(@Param("id") Long id,@Param("withdrawnAt") LocalDateTime withdrawnAt);
+  User updateWithdrawnAt(@Param("id") Long id, @Param("withdrawnAt") LocalDateTime withdrawnAt);
 
 }

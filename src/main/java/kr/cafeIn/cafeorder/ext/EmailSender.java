@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailSender {
 
-  public void send(String email, String otp) throws Exception{
+  public void send(String email, String otp) throws Exception {
     //이메일 속성 설정
     Properties properties = new Properties();
     properties.put("mail.smtp.host", "smtp.gmail.com"); //서버 호스트이름 설정
@@ -26,7 +26,7 @@ public class EmailSender {
     Session session = Session.getInstance(properties, new Authenticator() {
       @Override
       protected PasswordAuthentication getPasswordAuthentication() {
-        return new PasswordAuthentication("gksrlfaldud@gmail.com", "qsioeyftboaujdls");
+        return new PasswordAuthentication("", "");
       }
     });
 

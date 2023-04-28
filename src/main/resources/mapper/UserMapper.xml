@@ -25,14 +25,15 @@
   </insert>
 
 
-  <select id="findByEmail" parameterType="User" resultType="User">
+  <select id="findByEmail" parameterType="kr.cafeIn.cafeorder.model.domain.User"
+    resultType="kr.cafeIn.cafeorder.model.domain.User">
     select *
     from users
     where email = #{email}
 
   </select>
 
-  <select id="findById" resultType="User">
+  <select id="findById" resultType="kr.cafeIn.cafeorder.model.domain.User">
     select *
     from users
     where id = #{id}
@@ -52,12 +53,11 @@
     where id = #{id}
   </update>
 
-  <update id="updateWithdrawnAt"    >
+  <update id="updateWithdrawnAt">
     update users
     set withdrawn_at = #{withdrawnAt}
     where id = #{id}
   </update>
-
 
 
 </mapper>

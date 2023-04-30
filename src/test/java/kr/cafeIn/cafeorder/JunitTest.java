@@ -11,14 +11,18 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.junit.jupiter.api.Test;
 
+
 public class JunitTest {
 
   /**
    * OTP 메일 전송 테스트
+   *
    * @throws Exception
    */
+
+
   @Test
-  public void test() throws Exception{
+  public void test() throws Exception {
     String email = "gksrlfaldud@naver.com";
     String otp = "123";
     //이메일 속성 설정
@@ -32,7 +36,7 @@ public class JunitTest {
     Session session = Session.getInstance(properties, new Authenticator() {
       @Override
       protected PasswordAuthentication getPasswordAuthentication() {
-        return new PasswordAuthentication("", "");
+        return new PasswordAuthentication("gksrlfaldud@gmail.com", "qsioeyftboaujdls");
       }
     });
 

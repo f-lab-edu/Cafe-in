@@ -36,7 +36,7 @@ public class JunitTest {
     Session session = Session.getInstance(properties, new Authenticator() {
       @Override
       protected PasswordAuthentication getPasswordAuthentication() {
-        return new PasswordAuthentication("gksrlfaldud@gmail.com", "qsioeyftboaujdls");
+        return new PasswordAuthentication("", "");
       }
     });
 

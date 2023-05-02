@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.cafeIn.cafeorder.mapper.OtpHistoryMapper">
+  <insert id="saveOtp" parameterType="kr.cafeIn.cafeorder.model.domain.OtpHistory">
+    insert into otp_history(id,
+                            users_id,
+                            otp_key,
+                            otp_expire_time)
+    values (NULL,
+            #{userId},
+            #{otpKey},
+            #{otpExpireTime})
+
+  </insert>
+
+  <select id="existOtpKey" resultType="boolean">
+    select EXISTS
+             (
+             select otp_key
+             from otp_history
+             where otp_key = #{otpKey}
+             )
+
+  </select>
+
+  <select id="getExpireTime" resultType="java.time.LocalDateTime" parameterType="kr.cafeIn.cafeorder.model.domain.OtpHistory">
+    select otp_expire_time
+    from otp_history
+    where otp_key = #{otpKey}
+  </select>
+
+
+</mapper>

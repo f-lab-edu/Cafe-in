@@ -1,5 +1,6 @@
 package kr.cafeIn.cafeorder.model.dto.request;
 
+import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,9 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * MenuSave Dto.
- *
- * @since 1.0.0
+ * Review Request Dto.
  */
 
 @Getter
@@ -17,9 +16,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class MenuSaveRequest {
+public class ReviewReq {
 
-  private String name;
+  @NotBlank
+  private String description;
 
-  private Integer price;
+
 }

@@ -1,4 +1,3 @@
-
 package kr.cafeIn.cafeorder.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,7 +63,6 @@ class UserServiceTest {
         null, "test8@email.com",
         "password", "nickname2", 1, 1000,
         LocalDateTime.now(), LocalDateTime.now(), null
-
 
     );
 

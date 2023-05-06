@@ -8,16 +8,16 @@ import kr.cafeIn.cafeorder.model.dto.response.CafeInfoResponse;
 
 public interface CafeMapper {
 
-	void insertCafe(Cafe cafe);
+  void insertCafe(Cafe cafe);
 
-	boolean isExistsCafe(String title);
+  boolean isExistsCafe(String title);
 
-	Optional<CafeInfoResponse> selectCafeById(Long cafeId);
+  Optional<CafeInfoResponse> selectCafeById(Long cafeId);
 
-	List<Cafe> selectCafeAll();
+  List<Cafe> selectCafeAll();
 
-	void updateCafeById(Cafe cafe);
+  void updateCafeById(Cafe cafe);
 
-	void deleteCafe(Long id);
+  void deleteCafe(Long id);
 
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.cafeIn.cafeorder.mapper.LikedMapper">
+
+  <insert id="insertLiked" parameterType="kr.cafeIn.cafeorder.model.domain.Liked">
+    INSERT INTO liked (users_id, cafes_id, like_status)
+    VALUES (#{userId}, #{cafeId}, #{likeStatus})
+  </insert>
+
+  <update id="updateLiked">
+    UPDATE liked
+    <set>
+      <if test="likeStatus != null">like_status = #{likeStatus}</if>
+    </set>
+    WHERE id = #{id} AND users_id = #{userId}
+  </update>
+
+  <delete id="deleteLiked">
+    DELETE
+    FROM liked
+    WHERE id = #{likedId}
+      AND users_id = #{userId}
+  </delete>
+
+
+</mapper>

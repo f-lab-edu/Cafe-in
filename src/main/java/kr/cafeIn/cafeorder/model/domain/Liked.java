@@ -6,26 +6,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * Cafe Menu Model.
- *
- * @since 1.0.0
- */
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Menu {
+public class Liked {
 
-  private Long id;
 
-  private String name;
-
-  private Integer price;
-
-  private LocalDateTime createdAt;
-
-  private LocalDateTime updatedAt;
+  Long id;
+  Long userId;
+  Long cafeId;
+  Integer likeStatus; //좋아요 상태  좋아요: 1
+  LocalDateTime createdAt;
+  LocalDateTime updatedAt;
 
 }

@@ -7,16 +7,16 @@ import kr.cafeIn.cafeorder.model.dto.response.MenuInfoResponse;
 
 public interface MenuMapper {
 
-	void insertMenu(Menu menu);
+  void insertMenu(Menu menu);
 
-	boolean isExistsMenu(String name);
+  boolean isExistsMenu(String name);
 
-	Optional<MenuInfoResponse> selectMenuById(Long menuId);
+  Optional<MenuInfoResponse> selectMenuById(Long menuId);
 
-	List<Menu> selectMenuAll();
+  List<Menu> selectMenuAll();
 
-	void updateMenuById(Menu menu);
+  void updateMenuById(Menu menu);
 
-	void deleteMenu(Long id);
+  void deleteMenu(Long id);
 
 }

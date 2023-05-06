@@ -30,7 +30,6 @@ class LoginServiceTest {
   UserService userService;
 
 
-
   @InjectMocks //@mock객체를 주입
   LoginService loginService;
 
@@ -64,7 +63,8 @@ class LoginServiceTest {
   private void injectSessionInUserService() {
 
     try {
-      Field sessionField = loginService.getClass().getDeclaredField("sessionManager");//private 필드 접근(리플랙션)
+      Field sessionField = loginService.getClass()
+          .getDeclaredField("sessionManager");//private 필드 접근(리플랙션)
       sessionField.setAccessible(true);//값 변경 가능
       // HTTP 세션을 테스트 하기 위한 MockHttpSession 클래스를  주입
       SessionManager sessionManager = new SessionManager(new MockHttpSession());
@@ -79,8 +79,8 @@ class LoginServiceTest {
   @Test
   @DisplayName("로그인성공")
   public void loginTestWhenSuccess() {
-  when(userService.findOne(loginReq.getEmail())).thenReturn(Optional.ofNullable(user));
-   Optional<User> userOptional =userService.findOne(loginReq.getEmail());
+    when(userService.findOne(loginReq.getEmail())).thenReturn(Optional.ofNullable(user));
+    Optional<User> userOptional = userService.findOne(loginReq.getEmail());
     log.info(String.valueOf(userOptional.get()));
 
     loginService.login(loginReq);
@@ -92,7 +92,7 @@ class LoginServiceTest {
   @DisplayName("로그인 실패 : 잘못된 패스워드")
   public void loginTestWhenFail() {
     when(userService.findOne(loginReq.getEmail())).thenReturn(Optional.ofNullable(user));
-    Optional<User> userOptional =userService.findOne(loginReq.getEmail());
+    Optional<User> userOptional = userService.findOne(loginReq.getEmail());
     log.info(String.valueOf(userOptional.get()));
     loginReq.setPassword("");
     assertThrows(IllegalArgumentException.class, () -> loginService.login(loginReq));

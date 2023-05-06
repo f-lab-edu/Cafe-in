@@ -24,7 +24,8 @@
 
   </select>
 
-  <select id="getExpireTime" resultType="java.time.LocalDateTime" parameterType="kr.cafeIn.cafeorder.model.domain.OtpHistory">
+  <select id="getExpireTime" resultType="java.time.LocalDateTime"
+    parameterType="kr.cafeIn.cafeorder.model.domain.OtpHistory">
     select otp_expire_time
     from otp_history
     where otp_key = #{otpKey}

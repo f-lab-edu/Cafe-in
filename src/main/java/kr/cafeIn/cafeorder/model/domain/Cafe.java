@@ -12,21 +12,21 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Cafe {
 
-	private Long id;
+  private Long id;
 
-	private String title;
+  private String title;
 
-	private String location;
+  private String location;
 
-	private String locationSetting;
+  private String locationSetting;
 
-	private String tel;
+  private String tel;
 
-	private Integer latitude;
+  private Integer latitude;
 
-	private Integer longitude;
+  private Integer longitude;
 
-	private LocalDateTime createdAt;
+  private LocalDateTime createdAt;
 
-	private LocalDateTime updatedAt;
+  private LocalDateTime updatedAt;
 }

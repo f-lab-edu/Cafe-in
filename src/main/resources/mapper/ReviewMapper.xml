@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.cafeIn.cafeorder.mapper.ReviewMapper">
+
+  <insert id="insertReview" parameterType="kr.cafeIn.cafeorder.model.domain.Review">
+    INSERT INTO reviews (users_id, cafes_id, description)
+    VALUES (#{userId}, #{cafeId}, #{description})
+  </insert>
+
+  <update id="updateReview">
+    UPDATE reviews
+    <set>
+      <if test="description != null">description = #{description}</if>
+    </set>
+    WHERE id = #{id} AND users_id = #{userId}
+  </update>
+
+  <delete id="deleteReview">
+    DELETE FROM reviews
+    WHERE id = #{reviewId} AND users_id = #{userId}
+  </delete>
+
+
+
+  <select id="selectReviewsWithLikeStatus" resultType="kr.cafeIn.cafeorder.model.dto.response.ReviewRes">
+    SELECT reviews.*, liked.like_status
+    FROM reviews
+    JOIN liked ON reviews.cafes_id = liked.cafes_id OR reviews.users_id = liked.users_id
+    <where>
+      <if test="cafeId != null">
+        AND reviews.cafes_id = #{cafeId}
+      </if>
+      <if test="userId != null">
+        AND reviews.users_id = #{userId}
+      </if>
+      <if test="likeStatus != null">
+        AND liked.like_status = #{likeStatus}
+      </if>
+    </where>
+    ORDER BY reviews.created_at DESC
+    LIMIT #{offset}, #{limit}
+  </select>
+
+  <select id="countReviewsWithLikeStatus" resultType="long">
+    SELECT COUNT(*)
+    FROM reviews
+    JOIN liked ON reviews.cafes_id = liked.cafes_id OR reviews.users_id = liked.users_id
+    <where>
+      <if test="cafeId != null">
+        AND reviews.cafes_id = #{cafeId}
+      </if>
+      <if test="userId != null">
+        AND reviews.users_id = #{userId}
+      </if>
+      <if test="likeStatus != null">
+        AND liked.like_status = #{likeStatus}
+      </if>
+    </where>
+  </select>
+
+
+</mapper>

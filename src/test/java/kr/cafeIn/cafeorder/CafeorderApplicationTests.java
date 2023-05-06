@@ -13,24 +13,24 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 class CafeorderApplicationTests {
 
-	@Autowired
-	UserService userService;
+  @Autowired
+  UserService userService;
 
-	@Autowired
-	UserMapper userMapper;
+  @Autowired
+  UserMapper userMapper;
 
-	@Test
-	void contextLoads() {
+  @Test
+  void contextLoads() {
 
-		Long suffix = System.currentTimeMillis() % 100000L;
-		User sample = new User(
-				null, String.format("test+%s@email.com", suffix),
-				"password", "nickname", 1, 0,
-				LocalDateTime.now(), LocalDateTime.now(),null
+    Long suffix = System.currentTimeMillis() % 100000L;
+    User sample = new User(
+        null, String.format("test+%s@email.com", suffix),
+        "password", "nickname", 1, 0,
+        LocalDateTime.now(), LocalDateTime.now(), null
 
-		);
-		userMapper.save(sample);
+    );
+    userMapper.save(sample);
 
-	}
+  }
 
 }

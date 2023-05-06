@@ -16,82 +16,85 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class MenuService {
-	private final MenuMapper menuMapper;
 
-	/**
-	 * 메뉴 등록.
-	 *
-	 * @param menuSaveRequest 메뉴 등록 DTO
-	 * @since 1.0.0
-	 */
+  private final MenuMapper menuMapper;
 
-	public void saveMenu(MenuSaveRequest menuSaveRequest) {
-		if(isExistsMenu(menuSaveRequest.getName())) {
-			throw new DuplicatedException("This menu already exists.");
-		}
+  /**
+   * 메뉴 등록.
+   *
+   * @param menuSaveRequest 메뉴 등록 DTO
+   * @since 1.0.0
+   */
 
-		Menu menu = Menu.builder()
-			.name(menuSaveRequest.getName())
-			.price(menuSaveRequest.getPrice())
-			.build();
-		menuMapper.insertMenu(menu);
-	}
+  public void saveMenu(MenuSaveRequest menuSaveRequest) {
+    if (isExistsMenu(menuSaveRequest.getName())) {
+      throw new DuplicatedException("This menu already exists.");
+    }
 
-	@Transactional(readOnly = true)
-	public boolean isExistsMenu(String name) {
-		return menuMapper.isExistsMenu(name);
-	}
+    Menu menu = Menu.builder()
+        .name(menuSaveRequest.getName())
+        .price(menuSaveRequest.getPrice())
+        .build();
+    menuMapper.insertMenu(menu);
+  }
 
-	/**
-	 * id에 해당하는 메뉴 정보 조회.
-	 *
-	 * @param menuId 메뉴 id.
-	 * @since 1.0.0
-	 */
+  @Transactional(readOnly = true)
+  public boolean isExistsMenu(String name) {
+    return menuMapper.isExistsMenu(name);
+  }
 
-	public MenuInfoResponse getMenuInfo(Long menuId) {
-		//menuId = Long.valueOf(1);
-		return menuMapper.selectMenuById(menuId)
-			.orElseThrow(() -> new NotFoundException("Select not found menu"));
-	}
+  /**
+   * id에 해당하는 메뉴 정보 조회.
+   *
+   * @param menuId 메뉴 id.
+   * @since 1.0.0
+   */
 
-	/**
-	 * 메뉴 정보 전체 조회.
-	 * @since 1.0.0
-	 */
+  public MenuInfoResponse getMenuInfo(Long menuId) {
+    //menuId = Long.valueOf(1);
+    return menuMapper.selectMenuById(menuId)
+        .orElseThrow(() -> new NotFoundException("Select not found menu"));
+  }
 
-	public List<Menu> getMenuAll() {
-		List<Menu> menuList = menuMapper.selectMenuAll();
+  /**
+   * 메뉴 정보 전체 조회.
+   *
+   * @since 1.0.0
+   */
 
-		return menuList;
-	}
+  public List<Menu> getMenuAll() {
+    List<Menu> menuList = menuMapper.selectMenuAll();
 
-	/**
-	 * id에 해당하는 메뉴 정보 수정. (name, price).
-	 *
-	 * @param menuId 메뉴 ID.
-	 * @param menuUpdateRequest 메뉴수정 DTO.
-	 * @since 1.0.0
-	 */
+    return menuList;
+  }
 
-	public void updateMenuInfo(Long menuId, MenuUpdateRequest menuUpdateRequest) {
-		Menu menu = Menu.builder()
-			.id(menuId)
-			.name(menuUpdateRequest.getName())
-			.price(menuUpdateRequest.getPrice())
-			.build();
+  /**
+   * id에 해당하는 메뉴 정보 수정. (name, price).
+   *
+   * @param menuId            메뉴 ID.
+   * @param menuUpdateRequest 메뉴수정 DTO.
+   * @since 1.0.0
+   */
 
-		menuMapper.updateMenuById(menu);
-	}
+  public void updateMenuInfo(Long menuId, MenuUpdateRequest menuUpdateRequest) {
+    Menu menu = Menu.builder()
+        .id(menuId)
+        .name(menuUpdateRequest.getName())
+        .price(menuUpdateRequest.getPrice())
+        .build();
 
-	/**
-	 * id에 해당하는 메뉴 삭제.
-	 * @param menuId 메뉴 ID.
-	 * @since 1.0.0
-	 */
+    menuMapper.updateMenuById(menu);
+  }
 
-	public void deleteMenu(Long menuId) {
-		menuMapper.deleteMenu(menuId);
-	}
+  /**
+   * id에 해당하는 메뉴 삭제.
+   *
+   * @param menuId 메뉴 ID.
+   * @since 1.0.0
+   */
+
+  public void deleteMenu(Long menuId) {
+    menuMapper.deleteMenu(menuId);
+  }
 
 }

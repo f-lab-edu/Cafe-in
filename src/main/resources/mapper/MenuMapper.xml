@@ -12,12 +12,13 @@
 
   <select id="isExistsMenu" resultType="boolean">
     SELECT EXISTS
-    (SELECT name FROM menu WHERE name = #{name})
+             (SELECT name FROM menu WHERE name = #{name})
   </select>
 
   <select id="selectMenuById" resultType="kr.cafeIn.cafeorder.model.dto.response.MenuInfoResponse">
     SELECT name, price
-    FROM menu WHERE id = #{menuId}
+    FROM menu
+    WHERE id = #{menuId}
   </select>
 
   <select id="selectMenuAll" resultType="kr.cafeIn.cafeorder.model.domain.Menu">
@@ -36,7 +37,9 @@
   </update>
 
   <delete id="deleteMenu">
-    DELETE FROM menu WHERE id = #{menuId}
+    DELETE
+    FROM menu
+    WHERE id = #{menuId}
   </delete>
 
 </mapper>

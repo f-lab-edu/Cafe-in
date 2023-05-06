@@ -23,86 +23,86 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class CafeServiceTest {
 
-	@Mock
-	CafeMapper cafeMapper;
+  @Mock
+  CafeMapper cafeMapper;
 
-	@InjectMocks
-	CafeService cafeService;
+  @InjectMocks
+  CafeService cafeService;
 
-	Cafe cafe;
+  Cafe cafe;
 
-	CafeAddRequest cafeAddRequest;
+  CafeAddRequest cafeAddRequest;
 
-	CafeInfoResponse cafeInfoResponse;
+  CafeInfoResponse cafeInfoResponse;
 
-	@BeforeEach
-	public void addCafe() {
-		cafe = Cafe.builder()
-			.id(1L)
-			.title("testCafe")
-			.location("testLocation")
-			.locationSetting("testLocationSetting")
-			.tel("02-1234-1234")
-			.latitude(50)
-			.longitude(50)
-			.build();
+  @BeforeEach
+  public void addCafe() {
+    cafe = Cafe.builder()
+        .id(1L)
+        .title("testCafe")
+        .location("testLocation")
+        .locationSetting("testLocationSetting")
+        .tel("02-1234-1234")
+        .latitude(50)
+        .longitude(50)
+        .build();
 
-		cafeAddRequest = CafeAddRequest.builder()
-			.title("testCafe")
-			.location("testLocation")
-			.locationSetting("testLocationSetting")
-			.tel("02-1234-1234")
-			.latitude(50)
-			.longitude(50)
-			.build();
+    cafeAddRequest = CafeAddRequest.builder()
+        .title("testCafe")
+        .location("testLocation")
+        .locationSetting("testLocationSetting")
+        .tel("02-1234-1234")
+        .latitude(50)
+        .longitude(50)
+        .build();
 
-		cafeInfoResponse = CafeInfoResponse.builder()
-			.id(1L)
-			.title("testCafe")
-			.location("testLocation")
-			.thumbnail("testThumbnail")
-			.build();
-	}
+    cafeInfoResponse = CafeInfoResponse.builder()
+        .id(1L)
+        .title("testCafe")
+        .location("testLocation")
+        .thumbnail("testThumbnail")
+        .build();
+  }
 
-	@Test
-	@DisplayName("카페추가에 성공합니다.")
-	public void menuSaveTestWhenSuccess() {
-		when(cafeMapper.isExistsCafe(cafeAddRequest.getTitle())).thenReturn(false);
-		cafeService.addCafe(cafeAddRequest);
-		verify(cafeMapper).insertCafe(any(Cafe.class));
-	}
+  @Test
+  @DisplayName("카페추가에 성공합니다.")
+  public void menuSaveTestWhenSuccess() {
+    when(cafeMapper.isExistsCafe(cafeAddRequest.getTitle())).thenReturn(false);
+    cafeService.addCafe(cafeAddRequest);
+    verify(cafeMapper).insertCafe(any(Cafe.class));
+  }
 
-	@Test
-	@DisplayName("카페추가에 실패합니다. : 중복된 카페")
-	public void menuSaveTestWhenFail() {
-		when(cafeMapper.isExistsCafe(cafeAddRequest.getTitle())).thenReturn(true);
-		assertThrows(DuplicatedException.class, () -> cafeService.addCafe(cafeAddRequest));
-		verify(cafeMapper).isExistsCafe(cafeAddRequest.getTitle());
-	}
+  @Test
+  @DisplayName("카페추가에 실패합니다. : 중복된 카페")
+  public void menuSaveTestWhenFail() {
+    when(cafeMapper.isExistsCafe(cafeAddRequest.getTitle())).thenReturn(true);
+    assertThrows(DuplicatedException.class, () -> cafeService.addCafe(cafeAddRequest));
+    verify(cafeMapper).isExistsCafe(cafeAddRequest.getTitle());
+  }
 
-	@Test
-	@DisplayName("카페 조회에 성공합니다.")
-	public void selectCafeByIdTestWhenSuccess() {
-		when(cafeMapper.selectCafeById(1L))
-			.thenReturn(Optional.ofNullable(cafeInfoResponse));
-		cafeService.getCafeInfo(1L);
-		verify(cafeMapper).selectCafeById(1L);
-	}
+  @Test
+  @DisplayName("카페 조회에 성공합니다.")
+  public void selectCafeByIdTestWhenSuccess() {
+    when(cafeMapper.selectCafeById(1L))
+        .thenReturn(Optional.ofNullable(cafeInfoResponse));
+    cafeService.getCafeInfo(1L);
+    verify(cafeMapper).selectCafeById(1L);
+  }
 
-	@Test
-	@DisplayName("카페 정보 수정에 성공합니다.")
-	public void updateCafeByIdWhenSuccess() {
-		CafeUpdateRequest requestDto = CafeUpdateRequest.builder().build();
-		cafeService.updateCafeInfo(cafe.getId(), requestDto);
-		verify(cafeMapper).updateCafeById(any(Cafe.class));
-	}
+  @Test
+  @DisplayName("카페 정보 수정에 성공합니다.")
+  public void updateCafeByIdWhenSuccess() {
+    CafeUpdateRequest requestDto = CafeUpdateRequest.builder().build();
+    cafeService.updateCafeInfo(cafe.getId(), requestDto);
+    verify(cafeMapper).updateCafeById(any(Cafe.class));
+  }
 
-	@Test
-	@DisplayName("카페삭제에 성공합니다.")
-	public void deleteCafeWhenSuccess() {
-		cafeService.deleteCafe(cafe.getId());
-		verify(cafeMapper).deleteCafe(cafe.getId());
-	}
+  @Test
+  @DisplayName("카페삭제에 성공합니다.")
+  public void deleteCafeWhenSuccess() {
+    cafeService.deleteCafe(cafe.getId());
+    verify(cafeMapper).deleteCafe(cafe.getId());
+  }
 
 
 }

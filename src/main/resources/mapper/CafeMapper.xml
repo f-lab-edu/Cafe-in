@@ -12,12 +12,13 @@
 
   <select id="isExistsCafe" resultType="boolean">
     SELECT EXISTS
-    (SELECT title FROM cafes WHERE title = #{title})
+             (SELECT title FROM cafes WHERE title = #{title})
   </select>
 
   <select id="selectCafeById" resultType="kr.cafeIn.cafeorder.model.dto.response.CafeInfoResponse">
     SELECT id, title, location, location_setting, tel, latitude, longitude
-    FROM cafes WHERE id = #{id}
+    FROM cafes
+    WHERE id = #{id}
   </select>
 
   <select id="selectCafeAll" resultType="kr.cafeIn.cafeorder.model.domain.Cafe">
@@ -40,7 +41,9 @@
   </update>
 
   <delete id="deleteCafe">
-    DELETE FROM cafes WHERE id = #{cafeId}
+    DELETE
+    FROM cafes
+    WHERE id = #{cafeId}
   </delete>
 
 </mapper>

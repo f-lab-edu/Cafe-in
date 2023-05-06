@@ -25,65 +25,71 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MenuController {
 
-	private final MenuService menuService;
+  private final MenuService menuService;
 
-	/**
-	 * 메뉴 등록.
-	 * @param menuSaveRequest 메뉴등록 입력 정보
-	 * @since 1.0.0
-	 */
+  /**
+   * 메뉴 등록.
+   *
+   * @param menuSaveRequest 메뉴등록 입력 정보
+   * @since 1.0.0
+   */
 
-	@PostMapping
-	@ResponseStatus(HttpStatus.CREATED)
-	public void saveMenu(@Valid @RequestBody MenuSaveRequest menuSaveRequest) {
-		menuService.saveMenu(menuSaveRequest);
-	}
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public void saveMenu(@Valid @RequestBody MenuSaveRequest menuSaveRequest) {
+    menuService.saveMenu(menuSaveRequest);
+  }
 
-	/**
-	 * 메뉴 조회.
-	 * @param menuId 메뉴 ID.
-	 * @since 1.0.0
-	 */
+  /**
+   * 메뉴 조회.
+   *
+   * @param menuId 메뉴 ID.
+   * @since 1.0.0
+   */
 
-	@GetMapping("/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public MenuInfoResponse getMenuInfo(@RequestParam("id") Long menuId) {
-		return menuService.getMenuInfo(menuId);
-	}
+  @GetMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public MenuInfoResponse getMenuInfo(@RequestParam("id") Long menuId) {
+    return menuService.getMenuInfo(menuId);
+  }
 
-	/**
-	 * 메뉴 전체 조회.
-	 * @since 1.0.0
-	 */
+  /**
+   * 메뉴 전체 조회.
+   *
+   * @since 1.0.0
+   */
 
-	@GetMapping("/all")
-	@ResponseStatus(HttpStatus.CREATED)
-	public List<Menu> getMenuAll() {
-		return menuService.getMenuAll();
-	}
+  @GetMapping("/all")
+  @ResponseStatus(HttpStatus.CREATED)
+  public List<Menu> getMenuAll() {
+    return menuService.getMenuAll();
+  }
 
-	/**
-	 * 메뉴 정보 수정.
-	 * @param menuId 메뉴 ID.
-	 * @since 1.0.0
-	 */
+  /**
+   * 메뉴 정보 수정.
+   *
+   * @param menuId 메뉴 ID.
+   * @since 1.0.0
+   */
 
-	@PutMapping("/{id}")
-	@ResponseStatus(HttpStatus.OK)
-	public void updateMenuInfo(@PathVariable("id") Long menuId, @RequestBody MenuUpdateRequest menuUpdateRequest) {
-		menuService.updateMenuInfo(menuId, menuUpdateRequest);
-	}
+  @PutMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public void updateMenuInfo(@PathVariable("id") Long menuId,
+      @RequestBody MenuUpdateRequest menuUpdateRequest) {
+    menuService.updateMenuInfo(menuId, menuUpdateRequest);
+  }
 
-	/**
-	 * 메뉴 삭제.
-	 * @param menuId 메뉴 ID.
-	 * @since 1.0.0
-	 */
+  /**
+   * 메뉴 삭제.
+   *
+   * @param menuId 메뉴 ID.
+   * @since 1.0.0
+   */
 
-	@DeleteMapping("/{id}")
-	@ResponseStatus(HttpStatus.CREATED)
-	public void deleteMenu(@PathVariable("id") Long menuId) {
-		menuService.deleteMenu(menuId);
-	}
+  @DeleteMapping("/{id}")
+  @ResponseStatus(HttpStatus.CREATED)
+  public void deleteMenu(@PathVariable("id") Long menuId) {
+    menuService.deleteMenu(menuId);
+  }
 
 }

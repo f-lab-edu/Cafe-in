@@ -105,23 +105,19 @@ class UserServiceTest2 {
     //given
 
     Long id = user.getId();
-    log.info("id:{}",id);
+    log.info("id:{}", id);
 
-
-   //mock userRepository
+    //mock userRepository
     when(userMapper.findById(id)).thenReturn(Optional.of(user));
-
 
     //when
     userService.withdraw(id);
 
-    log.info("user:{}",user);
-
+    log.info("user:{}", user);
 
     //then
 
-    verify(userMapper).updateWithdrawnAt(eq(id),any(LocalDateTime.class));
-
+    verify(userMapper).updateWithdrawnAt(eq(id), any(LocalDateTime.class));
 
 
   }

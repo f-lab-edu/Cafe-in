@@ -1,5 +1,6 @@
 package kr.cafeIn.cafeorder.model.dto.request;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.ibatis.session.RowBounds;
 
@@ -8,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
  */
 
 @Getter
+@AllArgsConstructor
 public class SearchOption {
 
   private final Integer likeStatus;
@@ -24,20 +26,7 @@ public class SearchOption {
   /**
    * SearchOptionBuilder 를 위한 생성자 page 번호를 입력받아 {@link RowBounds} 를 생성. LIMIT의 기본 값은 10. 페이지 번호를
    * 입력하지 않는 경우 첫 페이지로 조회. 0 이하의 값이 들어왔을 경우 예외 발생.
-   *
-   * @param likeStatus
-   * @param cafeId
-   * @param userId
    */
-
-
-  public SearchOption(Integer likeStatus, Long cafeId, Long userId, Integer offset, Integer limit) {
-    this.likeStatus = likeStatus;
-    this.cafeId = cafeId;
-    this.userId = userId;
-    this.offset = offset;
-    this.limit = limit;
-  }
 
 
   public static SearchOptionBuilder builder() {
@@ -45,11 +34,6 @@ public class SearchOption {
     return new SearchOptionBuilder();
   }
 
-
-  /**
-   * SearchOptionBuilder 를 위한 생성자 page 번호를 입력받아 {@link RowBounds} 를 생성. LIMIT의 기본 값은 10. 페이지 번호를
-   * 입력하지 않는 경우 첫 페이지로 조회. 0 이하의 값이 들어왔을 경우 예외 발생.
-   */
 
   public static class SearchOptionBuilder {
 

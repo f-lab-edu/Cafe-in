@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import kr.cafeIn.cafeorder.model.domain.User;
-import kr.cafeIn.cafeorder.model.dto.request.LoginReq;
+import kr.cafeIn.cafeorder.model.dto.request.LoginRequest;
 import kr.cafeIn.cafeorder.utils.PasswordEncrypt;
 import kr.cafeIn.cafeorder.utils.SessionManager;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +35,7 @@ class LoginServiceTest {
 
   User user;
 
-  LoginReq loginReq;
+  LoginRequest loginReq;
 
   @BeforeEach
   public void beforeEach() {
@@ -52,7 +52,7 @@ class LoginServiceTest {
         .withdrawnAt(null)
         .build();
 
-    loginReq = LoginReq.builder()
+    loginReq = LoginRequest.builder()
         .email("email@email.com")
         .password("password")
         .build();

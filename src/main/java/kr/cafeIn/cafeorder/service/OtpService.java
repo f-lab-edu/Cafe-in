@@ -11,8 +11,8 @@ import kr.cafeIn.cafeorder.ext.EmailSender;
 import kr.cafeIn.cafeorder.mapper.OtpHistoryMapper;
 import kr.cafeIn.cafeorder.model.domain.OtpHistory;
 import kr.cafeIn.cafeorder.model.domain.User;
-import kr.cafeIn.cafeorder.model.dto.request.LoginForgotReq;
-import kr.cafeIn.cafeorder.model.dto.request.PasswordResetReq;
+import kr.cafeIn.cafeorder.model.dto.request.LoginForgotRequest;
+import kr.cafeIn.cafeorder.model.dto.request.PasswordResetRequest;
 import kr.cafeIn.cafeorder.utils.PasswordEncrypt;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,7 +64,7 @@ public class OtpService {
   }
 
   // user 가 존재하는 사용자 인지 확인 후에 opt 생성해서 해당 메일에 메세지를 보내준다.
-  public void saveOtp(LoginForgotReq loginForgotReq) {
+  public void saveOtp(LoginForgotRequest loginForgotReq) {
     log.info("loginForgotReq:{}", loginForgotReq);
     Optional<User> userOptional = userService.findOne(loginForgotReq.getEmail());
     log.info("userOptional{}", userOptional);
@@ -111,7 +111,7 @@ public class OtpService {
   }
 
   //@Transactional
-  public void updatePassword(PasswordResetReq passwordResetReq) {
+  public void updatePassword(PasswordResetRequest passwordResetReq) {
     Optional<User> user = userService.findOne(passwordResetReq.getEmail());
     User user1 = user.orElseThrow(IllegalArgumentException::new);
 

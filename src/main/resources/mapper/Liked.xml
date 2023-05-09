@@ -25,5 +25,11 @@
       AND users_id = #{userId}
   </delete>
 
+  <update id="updateUpdateAt">
+    UPDATE liked
+    SET update_at = NOW()
+    WHERE id = #{likedId}
+  </update>
+
 
 </mapper>

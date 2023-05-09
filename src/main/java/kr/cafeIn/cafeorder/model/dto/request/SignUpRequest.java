@@ -9,17 +9,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-/**
- * SignUp Dto
- *
- */
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SignUpReq {
+public class SignUpRequest {
 
   @NotBlank
   @Email

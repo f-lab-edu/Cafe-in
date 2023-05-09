@@ -12,4 +12,6 @@ public interface LikedMapper {
 
   int deleteLiked(@Param("userId") Long userId, @Param("likedId") Long likedId);
 
+  void updateUpdateAt(Long likedId);
+
 }

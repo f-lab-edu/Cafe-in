@@ -15,10 +15,10 @@ public interface ReviewMapper {
 
   int deleteReview(@Param("userId") Long userId, @Param("reviewId") Long reviewId);
 
-
-  // 해당 카페 기준 목록 조회
   List<ReviewRes> selectReviewsWithLikeStatus(SearchOption searchOption);
 
   Long countReviewsWithLikeStatus(SearchOption searchOption);
+
+  void updateUpdateAt(Long reviewId);
 
 }

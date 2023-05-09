@@ -19,13 +19,15 @@
   </update>
 
   <delete id="deleteReview">
-    DELETE FROM reviews
-    WHERE id = #{reviewId} AND users_id = #{userId}
+    DELETE
+    FROM reviews
+    WHERE id = #{reviewId}
+      AND users_id = #{userId}
   </delete>
 
 
-
-  <select id="selectReviewsWithLikeStatus" resultType="kr.cafeIn.cafeorder.model.dto.response.ReviewRes">
+  <select id="selectReviewsWithLikeStatus"
+    resultType="kr.cafeIn.cafeorder.model.dto.response.ReviewRes">
     SELECT reviews.*, liked.like_status
     FROM reviews
     JOIN liked ON reviews.cafes_id = liked.cafes_id OR reviews.users_id = liked.users_id
@@ -60,6 +62,12 @@
       </if>
     </where>
   </select>
+
+  <update id="updateUpdateAt">
+    UPDATE reviews
+    SET update_at = NOW()
+    WHERE id = #{reviewId}
+  </update>
 
 
 </mapper>

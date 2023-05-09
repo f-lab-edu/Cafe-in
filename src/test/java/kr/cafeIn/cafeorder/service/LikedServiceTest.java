@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import kr.cafeIn.cafeorder.exception.NotFoundException;
 import kr.cafeIn.cafeorder.mapper.LikedMapper;
 import kr.cafeIn.cafeorder.model.domain.Liked;
-import kr.cafeIn.cafeorder.model.dto.request.LikedReq;
+import kr.cafeIn.cafeorder.model.dto.request.LikeRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -34,7 +34,7 @@ public class LikedServiceTest {
     // given
     Long userId = 1L;
     Long cafeId = 2L;
-    LikedReq likedReq = new LikedReq(1);
+    LikeRequest likedReq = new LikeRequest(1);
 
     // when
     likedService.createLiked(likedReq, userId, cafeId);
@@ -49,7 +49,7 @@ public class LikedServiceTest {
     // given
     Long userId = 1L;
     Long likedId = 2L;
-    LikedReq likedReq = new LikedReq(1);
+    LikeRequest likedReq = new LikeRequest(1);
     Liked liked = Liked.builder().id(likedId).userId(userId).likeStatus(1).build();
 
     // when
@@ -66,7 +66,7 @@ public class LikedServiceTest {
     // given
     Long userId = 1L;
     Long likedId = 2L;
-    LikedReq likedReq = new LikedReq(0);
+    LikeRequest likedReq = new LikeRequest(0);
     Liked liked = Liked.builder().id(likedId).userId(userId).likeStatus(0).build();
 
     // when

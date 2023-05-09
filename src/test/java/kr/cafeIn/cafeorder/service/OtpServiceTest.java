@@ -18,8 +18,8 @@ import kr.cafeIn.cafeorder.ext.EmailSender;
 import kr.cafeIn.cafeorder.mapper.OtpHistoryMapper;
 import kr.cafeIn.cafeorder.model.domain.OtpHistory;
 import kr.cafeIn.cafeorder.model.domain.User;
-import kr.cafeIn.cafeorder.model.dto.request.LoginForgotReq;
-import kr.cafeIn.cafeorder.model.dto.request.PasswordResetReq;
+import kr.cafeIn.cafeorder.model.dto.request.LoginForgotRequest;
+import kr.cafeIn.cafeorder.model.dto.request.PasswordResetRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,7 +94,7 @@ public class OtpServiceTest {
   @DisplayName("OTP 저장 및 전송 테스트")
   void saveOtpTest() throws Exception {
     //given
-    LoginForgotReq loginForgotReq = new LoginForgotReq();
+    LoginForgotRequest loginForgotReq = new LoginForgotRequest();
     loginForgotReq.setEmail("test@test.com");
     User user = new User();
     user.setId(1L);
@@ -168,7 +168,7 @@ public class OtpServiceTest {
   public void updatePasswordEmailNotFound() {
     // given
     String email = "notfound@example.com";
-    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456",
+    PasswordResetRequest passwordResetReq = new PasswordResetRequest(email, "oldpassword", "123456",
         "123456");
 
     when(userService.findOne(anyString())).thenReturn(Optional.empty());
@@ -184,7 +184,7 @@ public class OtpServiceTest {
   public void updatePasswordInvalidOtp() {
     // given
     String email = "user@example.com";
-    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456",
+    PasswordResetRequest passwordResetReq = new PasswordResetRequest(email, "oldpassword", "123456",
         "123456");
 
     User user = new User();
@@ -206,7 +206,7 @@ public class OtpServiceTest {
   public void updatePasswordExpiredOtp() {
     // given
     String email = "user@example.com";
-    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456",
+    PasswordResetRequest passwordResetReq = new PasswordResetRequest(email, "oldpassword", "123456",
         "123456");
 
     //user생성
@@ -238,7 +238,7 @@ public class OtpServiceTest {
   public void updatePasswordValidOtp() {
     // given
     String email = "user@example.com";
-    PasswordResetReq passwordResetReq = new PasswordResetReq(email, "oldpassword", "123456",
+    PasswordResetRequest passwordResetReq = new PasswordResetRequest(email, "oldpassword", "123456",
         "123456");
 
     //user생성

@@ -75,7 +75,6 @@ public class UserService {
     //withdrawnAt 필드를 현재 시간으로 설정
     /*    user.setWithdrawnAt(LocalDateTime.now());*/
     LocalDateTime withdrawnAt = LocalDateTime.now();
-    log.info("withdrawnAt: {}, id: {}", withdrawnAt, id);
     userMapper.updateWithdrawnAt(id, withdrawnAt);
     return user;
   }

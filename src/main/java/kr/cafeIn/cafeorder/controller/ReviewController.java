@@ -4,7 +4,7 @@ package kr.cafeIn.cafeorder.controller;
 import javax.validation.Valid;
 import kr.cafeIn.cafeorder.annotation.CurrentUserId;
 import kr.cafeIn.cafeorder.annotation.LoginCheck;
-import kr.cafeIn.cafeorder.model.dto.request.ReviewReq;
+import kr.cafeIn.cafeorder.model.dto.request.ReviewRequest;
 import kr.cafeIn.cafeorder.model.dto.request.SearchOption;
 import kr.cafeIn.cafeorder.model.dto.response.PageInfo;
 import kr.cafeIn.cafeorder.model.dto.response.ReviewRes;
@@ -32,14 +32,6 @@ public class ReviewController {
   private final ReviewService reviewService;
 
 
-  /**
-   * 카페 리뷰 조회하기
-   *
-   * @param cafeId
-   * @param likeStatus
-   * @param page
-   * @return
-   */
   @GetMapping("/{id}/reviews")
   @ResponseStatus(HttpStatus.CREATED)
   public PageInfo<ReviewRes> getCafeReviews(@PathVariable("id") Long cafeId,
@@ -50,17 +42,6 @@ public class ReviewController {
 
     return reviewService.getCafeReview(searchOption);
   }
-
-
-  /**
-   * 해당 사용자 리뷰 목록 조회하기
-   *
-   * @param userId
-   * @param cafeId
-   * @param likeStatus
-   * @param page
-   * @return
-   */
 
   @GetMapping("/user/reviews")
   @LoginCheck
@@ -76,50 +57,22 @@ public class ReviewController {
   }
 
 
-  /**
-   * 리뷰 등록하기
-   *
-   * @param userId    유저 ID
-   * @param cafeId    카페 ID
-   * @param reviewReq 리뷰 DTO
-   */
-
-
   @PostMapping("/{id}/reviews")
   @LoginCheck
   @ResponseStatus(HttpStatus.CREATED)
   public void createReview(@CurrentUserId Long userId, @PathVariable("id") Long cafeId,
-      @Valid @RequestBody ReviewReq reviewReq) {
-    log.info("리뷰");
+      @Valid @RequestBody ReviewRequest reviewReq) {
     reviewService.createReview(reviewReq, userId, cafeId);
-    log.info("리뷰");
   }
 
-
-  /**
-   * 리뷰 수정하기
-   *
-   * @param userId
-   * @param cafeId
-   * @param reviewId
-   * @param reviewReq
-   */
   @PutMapping("/{id}/reviews/{reviewId}")
   @LoginCheck
   @ResponseStatus(HttpStatus.OK)
   public void updateReview(@CurrentUserId Long userId, @PathVariable("id") Long cafeId,
-      @PathVariable("reviewId") Long reviewId, @RequestBody ReviewReq reviewReq) {
+      @PathVariable("reviewId") Long reviewId, @RequestBody ReviewRequest reviewReq) {
     reviewService.updateReview(reviewReq, userId, reviewId);
   }
 
-  /**
-   * 리뷰 삭제하기.
-   *
-   * @param userId   유저 ID
-   * @param cafeId   카페 ID
-   * @param reviewId 리뷰 ID
-   * @since 1.0.0
-   */
   @DeleteMapping("/{id}/reviews/{reviewId}")
   @LoginCheck
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -127,6 +80,5 @@ public class ReviewController {
       @PathVariable("reviewId") Long reviewId) {
     reviewService.deleteReview(userId, reviewId);
   }
-
 
 }

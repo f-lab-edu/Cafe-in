@@ -6,7 +6,7 @@ import kr.cafeIn.cafeorder.annotation.WithdrawalCheck;
 import kr.cafeIn.cafeorder.exception.WithdrawalException;
 import kr.cafeIn.cafeorder.mapper.UserMapper;
 import kr.cafeIn.cafeorder.model.domain.User;
-import kr.cafeIn.cafeorder.model.dto.request.LoginReq;
+import kr.cafeIn.cafeorder.model.dto.request.LoginRequest;
 import kr.cafeIn.cafeorder.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,8 +43,8 @@ public class WithdrawalCheckAspect {
     // Get the email from the first argument
     String email;
     boolean isLoginReq = false;
-    if (args[0] instanceof LoginReq) {
-      email = ((LoginReq) args[0]).getEmail();
+    if (args[0] instanceof LoginRequest) {
+      email = ((LoginRequest) args[0]).getEmail();
       isLoginReq = true;
     } else if (args[0] instanceof User) {
       email = ((User) args[0]).getEmail();

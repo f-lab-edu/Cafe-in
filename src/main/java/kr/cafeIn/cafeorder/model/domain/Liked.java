@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 public class Liked {
 
 
-  Long id;
-  Long userId;
-  Long cafeId;
-  Integer likeStatus; //좋아요 상태  좋아요: 1
-  LocalDateTime createdAt;
-  LocalDateTime updatedAt;
+  private Long id;
+  private Long userId;
+  private Long cafeId;
+  private Integer likeStatus; // 추천:1 비추천:0
+  private LocalDateTime createdAt;
+  private LocalDateTime updatedAt = LocalDateTime.now();
 
 }

@@ -6,9 +6,9 @@ import kr.cafeIn.cafeorder.annotation.LoginCheck;
 import kr.cafeIn.cafeorder.annotation.WithdrawalCheck;
 import kr.cafeIn.cafeorder.exception.WithdrawalException;
 import kr.cafeIn.cafeorder.model.domain.User;
-import kr.cafeIn.cafeorder.model.dto.request.LoginForgotReq;
-import kr.cafeIn.cafeorder.model.dto.request.LoginReq;
-import kr.cafeIn.cafeorder.model.dto.request.PasswordResetReq;
+import kr.cafeIn.cafeorder.model.dto.request.LoginForgotRequest;
+import kr.cafeIn.cafeorder.model.dto.request.LoginRequest;
+import kr.cafeIn.cafeorder.model.dto.request.PasswordResetRequest;
 import kr.cafeIn.cafeorder.service.LoginService;
 import kr.cafeIn.cafeorder.service.OtpService;
 import kr.cafeIn.cafeorder.service.UserService;
@@ -58,7 +58,7 @@ public class UserController {
   @PostMapping
   @WithdrawalCheck
   @ResponseStatus(HttpStatus.OK)
-  public void login(@Valid @RequestBody LoginReq loginReq) {
+  public void login(@Valid @RequestBody LoginRequest loginReq) {
 
     loginService.login(loginReq);
 
@@ -93,7 +93,7 @@ public class UserController {
 
   @PostMapping("/forgot")
   @ResponseStatus(HttpStatus.OK)
-  public void forgotPassword(@Valid @RequestBody LoginForgotReq loginForgotReq) {
+  public void forgotPassword(@Valid @RequestBody LoginForgotRequest loginForgotReq) {
 
     otpService.saveOtp(loginForgotReq);
 
@@ -101,7 +101,7 @@ public class UserController {
 
   @PutMapping("/forgot/change")
   @ResponseStatus(HttpStatus.OK)
-  public void changePassword(@RequestBody PasswordResetReq passwordResetReq) {
+  public void changePassword(@RequestBody PasswordResetRequest passwordResetReq) {
     otpService.updatePassword(passwordResetReq);
   }
 

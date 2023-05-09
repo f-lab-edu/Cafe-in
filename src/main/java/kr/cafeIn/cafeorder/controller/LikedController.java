@@ -4,7 +4,7 @@ package kr.cafeIn.cafeorder.controller;
 import javax.validation.Valid;
 import kr.cafeIn.cafeorder.annotation.CurrentUserId;
 import kr.cafeIn.cafeorder.annotation.LoginCheck;
-import kr.cafeIn.cafeorder.model.dto.request.LikedReq;
+import kr.cafeIn.cafeorder.model.dto.request.LikeRequest;
 import kr.cafeIn.cafeorder.service.LikedService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,31 +24,14 @@ public class LikedController {
 
   private final LikedService likedService;
 
-  /**
-   * 좋아요 등록하기
-   *
-   * @param userId
-   * @param cafeId
-   * @param likedReq
-   */
-
   @PostMapping("/{id}/liked")
   @LoginCheck
   @ResponseStatus(HttpStatus.CREATED)
   public void createLiked(@CurrentUserId Long userId,
       @PathVariable("id") Long cafeId,
-      @Valid @RequestBody LikedReq likedReq) {
+      @Valid @RequestBody LikeRequest likedReq) {
     likedService.createLiked(likedReq, userId, cafeId);
   }
-
-  /**
-   * 좋아요 수정하기
-   *
-   * @param userId
-   * @param cafeId
-   * @param likedId
-   * @param likedReq
-   */
 
 
   @PutMapping("/{id}/liked/{likedId}")
@@ -57,17 +40,9 @@ public class LikedController {
   public void updateLiked(@CurrentUserId Long userId,
       @PathVariable("id") Long cafeId,
       @PathVariable("likedId") Long likedId,
-      @RequestBody LikedReq likedReq) {
+      @RequestBody LikeRequest likedReq) {
     likedService.updateLiked(likedReq, userId, likedId);
   }
-
-  /**
-   * 좋아요 삭제하기
-   *
-   * @param userId
-   * @param cafeId
-   * @param likedId
-   */
 
 
   @DeleteMapping("/{id}/liked/{likedId}")
@@ -77,7 +52,6 @@ public class LikedController {
       @PathVariable("id") Long cafeId, @PathVariable("likedId") Long likedId) {
     likedService.deleteLiked(userId, likedId);
   }
-
 
 }
 

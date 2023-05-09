@@ -2,7 +2,7 @@ package kr.cafeIn.cafeorder.service;
 
 
 import kr.cafeIn.cafeorder.model.domain.User;
-import kr.cafeIn.cafeorder.model.dto.request.LoginReq;
+import kr.cafeIn.cafeorder.model.dto.request.LoginRequest;
 import kr.cafeIn.cafeorder.utils.PasswordEncrypt;
 import kr.cafeIn.cafeorder.utils.SessionManager;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class LoginService {
    * 로그인. 데이터베이스에 저장된 패스워드와 입력한 패스워드 검증 후 세션에 값 저장.
    */
 
-  public void login(LoginReq loginReq) {
+  public void login(LoginRequest loginReq) {
     User user = userService.findOne(loginReq.getEmail())
         .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 이메일입니다"));
 

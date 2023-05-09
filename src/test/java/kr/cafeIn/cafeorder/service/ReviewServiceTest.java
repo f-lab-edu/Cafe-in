@@ -11,7 +11,7 @@ import java.util.List;
 import kr.cafeIn.cafeorder.exception.NotFoundException;
 import kr.cafeIn.cafeorder.mapper.ReviewMapper;
 import kr.cafeIn.cafeorder.model.domain.Review;
-import kr.cafeIn.cafeorder.model.dto.request.ReviewReq;
+import kr.cafeIn.cafeorder.model.dto.request.ReviewRequest;
 import kr.cafeIn.cafeorder.model.dto.request.SearchOption;
 import kr.cafeIn.cafeorder.model.dto.response.ReviewRes;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,12 +33,12 @@ public class ReviewServiceTest {
   ReviewMapper reviewMapper;
 
   Review review;
-  ReviewReq reviewReq;
+  ReviewRequest reviewReq;
 
   @BeforeEach
   public void beforeEach() {
     review = Review.builder().build();
-    reviewReq = new ReviewReq();
+    reviewReq = new ReviewRequest();
   }
 
   @Test

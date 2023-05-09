@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class ReviewRes {
 
   @NotBlank
-  private Long ig;
+  private Long id;
 
   @NotBlank
   private String nickname;
@@ -27,7 +27,7 @@ public class ReviewRes {
 
   @Min(0)
   @Max(1)
-  private int like;//좋아요 보내기
+  private int like;// 추천,비추천 보내기
 
   private LocalDateTime createdAt;
 

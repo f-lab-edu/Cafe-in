@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.cafeIn.cafeorder.mapper.CafeTableMapper">
+
+  <select id="getCafeTableLockById" resultType="long">
+    SELECT id
+    FROM cafe_table_locks WHERE cafe_table_id = #{tableId} FOR UPDATE
+  </select>
+
+  <select id="isExistsCafeTableNumber" resultType="boolean">
+    SELECT EXISTS
+    (
+      SELECT id
+      FROM cafe_tables
+      WHERE cafe_id = #{cafeId} AND
+      table_number = #{tableNumber}
+    )
+  </select>
+
+  <insert id="insertCafeTables" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO cafe_tables (cafe_id, table_Number, capacity)
+    VALUES
+    <foreach collection="list" item="cateTable" separator=",">
+      (
+      #{cafeId},
+      #{tableNumber},
+      #{capacity}
+      )
+    </foreach>
+  </insert>
+
+  <insert id="insertCafeTable" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO cafe_tables (cafe_id, table_number, capacity)
+    VALUES (#{cafeId}, #{tableNumber}, #{capacity})
+  </insert>
+
+  <insert id="insertCafeTableLock">
+    INSERT INTO cafe_table_locks (cafe_table_id)
+    VALUES (#{id})
+  </insert>
+
+  <insert id="insertCafeTableLocks">
+    INSERT INTO cafe_table_locks (cafe_table_id)
+    VALUES
+    <foreach collection="list" item="id" separator=",">
+      ( #{id} )
+    </foreach>
+  </insert>
+
+  <update id="updateCafeTable">
+    UPDATE cafe_tables
+    <set>
+      <if test="tableNumber != null">table_number = #{tableNumber},</if>
+      <if test="capacity != null">capacity = #{capacity}</if>
+    </set>
+    WHERE id = #{tableId}
+  </update>
+
+  <delete id="deleteCafeTable">
+    DELETE FROM cafe_tables
+    WHERE id = #{id}
+  </delete>
+
+  <select id="selectCafeTableUseInfo" resultType="kr.cafeIn.cafeorder.model.dto.response.CafeTableUseInfoResponse">
+    SELECT id, table_number, capacity,
+      ( SELECT EXISTS
+        (
+          SELECT id FROM cafe_order
+          WHERE table_id = cafe_tables.id
+          AND start_time &lt;= #{searchTime}
+          AND #{searchTime} &lt;= end_time
+        )
+      ) AS currentUse
+    FROM cafe_tables
+    WHERE cafe_id = #{cafeId}
+  </select>
+
+</mapper>

@@ -1,21 +1,19 @@
 package kr.cafeIn.cafeorder.model.dto.response;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class MenuInfoResponse {
+public class CafeTableUseInfoResponse {
 
-	private Long cafeId;
+	private Long id;
 
-	private String name;
+	private Integer tableNumber;
 
-	private Integer price;
+	private Integer capacity;
 
+	private Boolean currentUse;
 }

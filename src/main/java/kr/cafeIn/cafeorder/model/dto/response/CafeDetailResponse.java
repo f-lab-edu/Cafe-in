@@ -1,23 +1,28 @@
 package kr.cafeIn.cafeorder.model.dto.response;
 
+
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Builder
-public class CafeInfoResponse {
+public class CafeDetailResponse {
 
 	private Long id;
-	//	private Long cafe_id; 임시로 빼기
 	private String title;
-
 	private String location;
-
+	private String locationSetting;
 	private String thumbnail;
+	private String tel;
+	private Integer latitude;
+	private Integer longitude;
+	private List<CafeTableUseInfoResponse> table;
+
 }

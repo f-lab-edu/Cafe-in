@@ -10,25 +10,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Cafe {
+public class CafeTable {
 
 	private Long id;
 
-	private Long userId;
+	private Long tableId;
 
-	private String title;
+	private Long cafeId;
 
-	private String location;
+	private Integer tableNumber;
 
-	private String locationSetting;
+	private Integer capacity;
 
-	private String tel;
-
-	private Integer latitude;
-
-	private Integer longitude;
+	private String currentUse;
 
 	private LocalDateTime createdAt;
 
 	private LocalDateTime updatedAt;
+
 }

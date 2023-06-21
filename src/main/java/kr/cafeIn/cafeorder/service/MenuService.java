@@ -6,8 +6,7 @@ import kr.cafeIn.cafeorder.exception.DuplicatedException;
 import kr.cafeIn.cafeorder.exception.NotFoundException;
 import kr.cafeIn.cafeorder.mapper.MenuMapper;
 import kr.cafeIn.cafeorder.model.domain.Menu;
-import kr.cafeIn.cafeorder.model.dto.request.MenuSaveRequest;
-import kr.cafeIn.cafeorder.model.dto.request.MenuUpdateRequest;
+import kr.cafeIn.cafeorder.model.dto.request.MenuRequest;
 import kr.cafeIn.cafeorder.model.dto.response.MenuInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,28 +17,30 @@ import org.springframework.transaction.annotation.Transactional;
 public class MenuService {
 	private final MenuMapper menuMapper;
 
+
+	@Transactional(readOnly = true)
+	public boolean isExistsMenu(String name, Long cafeId) {
+		return menuMapper.isExistsMenu(name, cafeId);
+	}
+
 	/**
 	 * 메뉴 등록.
 	 *
-	 * @param menuSaveRequest 메뉴 등록 DTO
+	 * @param menuRequest 메뉴 등록 DTO
 	 * @since 1.0.0
 	 */
 
-	public void saveMenu(MenuSaveRequest menuSaveRequest) {
-		if(isExistsMenu(menuSaveRequest.getName())) {
+	public void createMenu(MenuRequest menuRequest, Long cafeId) {
+		if (isExistsMenu(menuRequest.getName(), cafeId)) {
 			throw new DuplicatedException("This menu already exists.");
 		}
 
 		Menu menu = Menu.builder()
-			.name(menuSaveRequest.getName())
-			.price(menuSaveRequest.getPrice())
+			.cafeId(cafeId)
+			.name(menuRequest.getName())
+			.price(menuRequest.getPrice())
 			.build();
-		menuMapper.insertMenu(menu);
-	}
-
-	@Transactional(readOnly = true)
-	public boolean isExistsMenu(String name) {
-		return menuMapper.isExistsMenu(name);
+		menuMapper.createMenu(menu);
 	}
 
 	/**
@@ -70,18 +71,19 @@ public class MenuService {
 	 * id에 해당하는 메뉴 정보 수정. (name, price).
 	 *
 	 * @param menuId 메뉴 ID.
-	 * @param menuUpdateRequest 메뉴수정 DTO.
+	 * @param menuRequest 메뉴수정 DTO.
 	 * @since 1.0.0
 	 */
 
-	public void updateMenuInfo(Long menuId, MenuUpdateRequest menuUpdateRequest) {
+	public void updateMenu(MenuRequest menuRequest, Long menuId, Long cafeId) {
 		Menu menu = Menu.builder()
 			.id(menuId)
-			.name(menuUpdateRequest.getName())
-			.price(menuUpdateRequest.getPrice())
+			.cafeId(cafeId)
+			.name(menuRequest.getName())
+			.price(menuRequest.getPrice())
 			.build();
 
-		menuMapper.updateMenuById(menu);
+		menuMapper.updateMenu(menu);
 	}
 
 	/**

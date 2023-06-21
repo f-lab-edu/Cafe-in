@@ -20,6 +20,8 @@ public class Menu {
 
 	private Long id;
 
+	private Long cafeId;
+
 	private String name;
 
 	private Integer price;

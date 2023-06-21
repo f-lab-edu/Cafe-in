@@ -3,20 +3,22 @@ package kr.cafeIn.cafeorder.mapper;
 import java.util.List;
 import java.util.Optional;
 import kr.cafeIn.cafeorder.model.domain.Cafe;
-import kr.cafeIn.cafeorder.model.dto.response.CafeInfoResponse;
+import kr.cafeIn.cafeorder.model.dto.response.CafeDetailResponse;
 
 
 public interface CafeMapper {
 
-	void insertCafe(Cafe cafe);
+	void createCafe(Cafe cafe);
 
 	boolean isExistsCafe(String title);
 
-	Optional<CafeInfoResponse> selectCafeById(Long cafeId);
+	Optional<Cafe> selectCafeById(Long cafeId);
+
+	Optional<CafeDetailResponse> selectCafeDetailById(Long cafeId);
 
 	List<Cafe> selectCafeAll();
 
-	void updateCafeById(Cafe cafe);
+	void updateCafe(Cafe cafe);
 
 	void deleteCafe(Long id);
 

@@ -1,5 +1,6 @@
 package kr.cafeIn.cafeorder.model.dto.request;
 
+import javax.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,19 +12,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CafeUpdateRequest {
+public class TableRequest {
 
-	private String title;
+	private Long cafeId;
 
-	private String location;
+	@Min(1)
+	private Integer tableNumber;
 
-	private String locationSetting;
-
-	private String tel;
-
-	private Integer latitude;
-
-	private Integer longitude;
-
-	private String thumbnail;
+	@Min(1)
+	private Integer capacity;
 }

@@ -1,6 +1,10 @@
-package kr.cafeIn.cafeorder.model.dto.response;
+package kr.cafeIn.cafeorder.model.dto.request;
 
-import java.time.LocalDateTime;
+import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import kr.cafeIn.cafeorder.exception.DuplicatedException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,14 +12,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CafeInfoAllResponse {
+public class CafeRequest {
 
 	private Long id;
-	//	private Long cafe_id; 임시로 빼기
+
 	private String title;
 
 	private String location;
@@ -28,7 +31,6 @@ public class CafeInfoAllResponse {
 
 	private Integer longitude;
 
-	private LocalDateTime createdAt;
+	private String thumbnail;
 
-	private LocalDateTime updatedAt;
 }

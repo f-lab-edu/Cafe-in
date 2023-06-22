@@ -14,8 +14,6 @@ public class CafeTableService {
 
 	private final CafeTableMapper cafeTableMapper;
 
-	private final OrderMapper orderMapper;
-
 	// 카페에 해당 테이블 번호가 존재하는지 확인.
 	@Transactional(readOnly = true)
 	public boolean isExistsCafeTableNumber(Integer tableNumber, Long cafeId) {
@@ -49,14 +47,6 @@ public class CafeTableService {
 			.build();
 
 		cafeTableMapper.updateCafeTable(cafeTable);
-	}
-
-	// 테이블 삭제하기.
-	public void deleteTable(Long cafeTableId) {
-		if (orderMapper.isExistsNowOrderByCafeTableId(cafeTableId)) {
-			throw new DuplicatedException("A order exists at that time.");
-		}
-		cafeTableMapper.deleteCafeTable(cafeTableId);
 	}
 
 }

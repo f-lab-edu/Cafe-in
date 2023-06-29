@@ -20,7 +20,7 @@
 [#14]세션유지를 위한 방법 jwt vs 세션<br>
 https://webmaster-mi.tistory.com/133
 
-중복 예약 요청으로 발생하는 DB 동시성 이슈<br>
+중복 예약 요청으로 발생하는 DB 동시성 이슈 해결하기<br>
 https://velog.io/@white0597/%EC%A4%91%EB%B3%B5-%EC%98%88%EC%95%BD-%EC%9A%94%EC%B2%AD%EC%9C%BC%EB%A1%9C-%EB%B0%9C%EC%83%9D%ED%95%98%EB%8A%94-DB-%EB%8F%99%EC%8B%9C%EC%84%B1-%ED%95%B4%EA%B2%B0
 
 

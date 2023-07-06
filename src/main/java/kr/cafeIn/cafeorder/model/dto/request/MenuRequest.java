@@ -11,19 +11,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CafeAddRequest {
+public class MenuRequest {
 
-	private String title;
+	private Long cafeId;
 
-	private String location;
+	private String name;
 
-	private String locationSetting;
+	private Integer price;
 
-	private String tel;
-
-	private Integer latitude;
-
-	private Integer longitude;
-
-	private String thumbnail;
 }

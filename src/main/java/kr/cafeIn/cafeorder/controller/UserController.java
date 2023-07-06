@@ -29,81 +29,81 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class UserController {
 
-  private final UserService userService;
+	private final UserService userService;
 
-  private final OtpService otpService;
+	private final OtpService otpService;
 
-  private final LoginService loginService;
+	private final LoginService loginService;
 
-  /**
-   * 회원가입
-   *
-   * @return
-   */
+	/**
+	 * 회원가입
+	 *
+	 * @return
+	 */
 
-  @WithdrawalCheck
-  @PostMapping("/signup")//form 데이터 보낼때 ( 데이터 등록시 사용) url은 똑같지만 !
-  @ResponseStatus(HttpStatus.CREATED)
-  public void signup(@Valid @RequestBody User user) {
-    userService.join(user);
+	@WithdrawalCheck
+	@PostMapping("/signup")//form 데이터 보낼때 ( 데이터 등록시 사용) url은 똑같지만 !
+	@ResponseStatus(HttpStatus.CREATED)
+	public void signup(@Valid @RequestBody User user) {
+		userService.join(user);
 
 
-  }
+	}
 
-  /**
-   * 로그인
-   *
-   * @param loginReq 정보 입력
-   */
-  @PostMapping
-  @WithdrawalCheck
-  @ResponseStatus(HttpStatus.OK)
-  public void login(@Valid @RequestBody LoginReq loginReq) {
+	/**
+	 * 로그인
+	 *
+	 * @param loginReq 정보 입력
+	 */
+	@PostMapping
+	@WithdrawalCheck
+	@ResponseStatus(HttpStatus.OK)
+	public void login(@Valid @RequestBody LoginReq loginReq) {
 
-    loginService.login(loginReq);
+		loginService.login(loginReq);
 
-  }
+	}
 
-  /**
-   * 로그아웃
-   */
-  @PostMapping("/logout")
-  @LoginCheck
-  @ResponseStatus(HttpStatus.OK)
-  public void logout() {
-    loginService.logout();
+	/**
+	 * 로그아웃
+	 */
+	@PostMapping("/logout")
+	@LoginCheck
+	@ResponseStatus(HttpStatus.OK)
+	public void logout() {
+		loginService.logout();
 
-  }
+	}
 
-  /**
-   * 회원탈퇴
-   */
-  @LoginCheck
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  @PutMapping("/leave")
-  public void withdraw(@CurrentUserId Long id) throws WithdrawalException {
+	/**
+	 * 회원탈퇴
+	 */
+	@LoginCheck
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("/leave")
+	public void withdraw(@CurrentUserId Long id) throws WithdrawalException {
 
-    userService.withdraw(id);
+		userService.withdraw(id);
 
-  }
+	}
 
-  /**
-   * 비밀번호 변경
-   */
+	/**
+	 * 비밀번호 변경
+	 */
 
-  @PostMapping("/forgot")
-  @ResponseStatus(HttpStatus.OK)
-  public void forgotPassword(@Valid @RequestBody LoginForgotReq loginForgotReq) {
+	@PostMapping("/forgot")
+	@ResponseStatus(HttpStatus.OK)
+	public void forgotPassword(@Valid @RequestBody LoginForgotReq loginForgotReq) {
 
-    otpService.saveOtp(loginForgotReq);
+		otpService.saveOtp(loginForgotReq);
 
-  }
+	}
 
-  @PutMapping("/forgot/change")
-  @ResponseStatus(HttpStatus.OK)
-  public void changePassword(@RequestBody PasswordResetReq passwordResetReq) {
-    otpService.updatePassword(passwordResetReq);
-  }
+	@PutMapping("/forgot/change")
+	@ResponseStatus(HttpStatus.OK)
+	public void changePassword(@RequestBody PasswordResetReq passwordResetReq) {
+		otpService.updatePassword(passwordResetReq);
+	}
 
 
 }

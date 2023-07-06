@@ -6,27 +6,23 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Cafe {
+@Getter
+public class Order {
 
 	private Long id;
 
 	private Long userId;
 
-	private String title;
+	private Long cafeId;
 
-	private String location;
+	private Long tableId;
 
-	private String locationSetting;
+	private LocalDateTime startTime;
 
-	private String tel;
-
-	private Integer latitude;
-
-	private Integer longitude;
+	private LocalDateTime endTime;
 
 	private LocalDateTime createdAt;
 
